@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="0baf7ea6-294d-4032-81ec-0e7c09a652c3" name="Measuring">
       <successors>
-        <transition Id="147bc579-e2e4-475d-8b49-c6093f5015b3" action="position := d | speed := v" label="// position := d | speed := v" precondition="auto">
+        <transition Id="147bc579-e2e4-475d-8b49-c6093f5015b3" action="position := d_train | speed := v_train" label="// position := d_train | speed := v_train" precondition="auto">
           <stateMoniker name="/56ca2f81-105a-4b2d-b42b-c4369c6f7fb8/Measuring" />
         </transition>
       </successors>
@@ -26,10 +26,10 @@
   </variables>
   <importedVariables>
     <programGraphHasImportedVariables Id="aef31944-17cf-4773-83a0-1aa20375ab78">
-      <importedVariable Id="627bae7f-8ad2-47a5-b9eb-bc271482a582" name="Zug.d" range="0..1500" />
+      <importedVariable Id="627bae7f-8ad2-47a5-b9eb-bc271482a582" name="Zug.d_train" range="0..1500" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="ad2839a9-092a-4b21-90d2-5fb559f53492">
-      <importedVariable Id="cd620587-e7c7-4f8e-85ee-ec934a952078" name="Zug.v" range="0..44" />
+      <importedVariable Id="cd620587-e7c7-4f8e-85ee-ec934a952078" name="Zug.v_train" range="0..44" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

@@ -3,3 +3,39 @@
 <#@ assembly Name="Safety.ProgramGraphDsl.dll" #>
 
 <#=  TransformToNuSMV() #>
+
+
+DEFINE 
+		Bremse := v.V_Bremse;
+		Zugsteuerung := v.V_Zugsteuerung;
+		BUfunkmodul := v.V_BUfunkmodul;
+		buf_time := v.V_buf_time;
+		Zugfunkmodul := v.V_Zugfunkmodul;
+		BUSteuerung := v.V_BUSteuerung;
+		a := v.V_a;
+		v_train := v.V_v_train;
+		d_train:= v.V_d_train;
+		c := v.V_c;
+		t:= v.V_t;
+		z:= v.V_z;
+		Schrankegeschlossensensor:= v.V_Schrankegeschlossensensor;
+		Schrankeoffensensor:= v.V_Schrankeoffensensor;
+		Zugsensor:= v.V_Zugsensor;
+		BUtimer:= v.V_BUtimer;
+		time:= v.V_time;
+		Hodometer:= v.V_Hodometer;
+		position:= v.V_position;
+		speed:= v.V_speed;
+		Schrankenbaum:= v.V_Schrankenbaum;
+		angle:= v.V_angle;
+		Schrankenmotor:= v.V_Schrankenmotor;
+		Zug:= v.V_Zug;
+		GP:= v.V_GP;
+		SP:= v.V_SP;
+		zf_time:= v.V_zf_time;
+		Zugmotor:= v.V_Zugmotor;
+		Zugpositionrechner:= v.V_Zugpositionrechner;
+		
+
+
+LTLSPEC F (Zugsteuerung = L_Moving)

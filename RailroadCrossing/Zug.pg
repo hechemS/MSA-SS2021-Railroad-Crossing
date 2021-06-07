@@ -12,10 +12,10 @@
   </states>
   <variables>
     <programGraphHasVariables Id="187f6c31-3f0f-4c9e-a237-5a9fa6438317">
-      <variable Id="b6f37c35-8228-48c8-af8a-aa20d246cfb4" name="d" range="0..1500" />
+      <variable Id="b6f37c35-8228-48c8-af8a-aa20d246cfb4" name="d_train" range="0..1500" />
     </programGraphHasVariables>
     <programGraphHasVariables Id="3d314365-a5f5-4de5-b87c-bb4093f32813">
-      <variable Id="9f1e2fdf-39c7-46d9-9e98-29c93498aafd" name="v" range="0..44" />
+      <variable Id="9f1e2fdf-39c7-46d9-9e98-29c93498aafd" name="v_train" range="0..44" />
     </programGraphHasVariables>
     <programGraphHasVariables Id="3f8a2027-c983-4bee-986f-5eca1f69d95a">
       <variable Id="a59b8e1f-6675-4038-ad3c-e11b82705c01" name="GP" range="1000" />

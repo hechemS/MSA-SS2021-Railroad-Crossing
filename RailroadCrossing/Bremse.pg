@@ -10,10 +10,10 @@
     </state>
     <state Id="025b2b72-d072-4bac-bc91-3920d2ea496a" name="On">
       <successors>
-        <transition Id="4f9c5617-ab7e-406c-a6a3-998af1c712da" guard="v &gt;= a" action="v := v - a" label="v &gt;= a // v := v - a" precondition="v &gt;= a">
+        <transition Id="4f9c5617-ab7e-406c-a6a3-998af1c712da" guard="v_train &gt;= a" action="v_train := v_train - a" label="v_train &gt;= a // v_train := v_train - a" precondition="v_train  &gt;= a">
           <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/On" />
         </transition>
-        <transition Id="8660ba81-649d-417d-bf61-93b73f91ab52" guard="v &lt; a" action="v := 0" label="v &lt; a // v := 0" precondition="v &lt; a">
+        <transition Id="8660ba81-649d-417d-bf61-93b73f91ab52" guard="v_train &lt; a" action="v_train := 0" label="v_train &lt; a // v_train := 0" precondition="v_train &lt; a">
           <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/On" />
         </transition>
       </successors>
@@ -36,7 +36,7 @@
       <importedVariable Id="470a6dd5-29bb-432d-929e-ff6667fdbe4f" name="Zugsteuerung" range="Moving, Notifying, Inquiring, Breaking" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="b960b65e-6dca-4236-a425-d1deca6b2829">
-      <importedVariable Id="bf5c9fc4-4140-49b6-876c-fb50d0e92276" name="Zug.v" range="0..44" />
+      <importedVariable Id="bf5c9fc4-4140-49b6-876c-fb50d0e92276" name="Zug.v_train" range="0..44" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>
