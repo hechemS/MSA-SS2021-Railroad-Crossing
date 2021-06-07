@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="1dd43417-037d-4fbf-8074-ca90ea42fe23" name="BUSteuerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <state Id="09947f08-e767-4afb-98b2-014ca939483d" name="Idle">
+      <successors>
+        <transition Id="50fa1d39-6851-4028-b7b8-85014c1d8049" guard="BUfunkmodul == Notification_Recieved" label="BUfunkmodul == Notification_Recieved">
+          <stateMoniker name="/1dd43417-037d-4fbf-8074-ca90ea42fe23/Closing" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="9d9322c6-a473-420b-bf3c-07f53ee1d220" name="Closing">
+      <successors>
+        <transition Id="072b0930-0447-4fff-a7b3-862a3086b61f" guard="Schrankegeschlossensensor == Closed &amp;&amp; Schrankeoffensensor == Not_open" label="Schrankegeschlossensensor == Closed &amp;&amp; Schrankeoffensensor == Not_open">
+          <stateMoniker name="/1dd43417-037d-4fbf-8074-ca90ea42fe23/Secured" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="e0c8a84b-2432-4bde-b66f-ecf8d1cbd3f9" name="Secured">
+      <successors>
+        <transition Id="f63b1689-4350-42c6-8d85-7c5858bfe35c" guard="Zugsensor == TrainDetected || BUtimer == Time_Up" label="Zugsensor == TrainDetected || BUtimer == Time_Up">
+          <stateMoniker name="/1dd43417-037d-4fbf-8074-ca90ea42fe23/Opening" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="5afe900e-4bfd-4e41-849f-10423c819fd7" name="Opening">
+      <successors>
+        <transition Id="648498cb-21f1-4610-b09b-ecce75bd33a1" guard="Schrankeoffensensor == Open" label="Schrankeoffensensor == Open">
+          <stateMoniker name="/1dd43417-037d-4fbf-8074-ca90ea42fe23/Idle" />
+        </transition>
+      </successors>
+    </state>
+    <initialNode Id="44ca9b69-f64b-4f34-a84e-1f5f789f1871" name="InitialNode1">
+      <successors>
+        <transition Id="860f0536-c8ad-4e37-af53-eea52844ee90">
+          <stateMoniker name="/1dd43417-037d-4fbf-8074-ca90ea42fe23/Idle" />
+        </transition>
+      </successors>
+    </initialNode>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="3adb6b9f-0fcb-48ba-9870-7f650629c42e">
+      <importedVariable Id="79d0cebb-9d0a-4250-8bc8-cf7b13405319" name="BUfunkmodul" range="idle, Notification_Recieved, Confimation_Request, Confirmation_Pending, Confirmed" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="e7b30f70-0c8e-40d2-9232-1ecb865c080f">
+      <importedVariable Id="9f7ce96a-116a-4138-8ac2-07341aea52fb" name="Schrankegeschlossensensor" range="Not_closed, Closed" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="3f215cb7-affb-4218-b503-e6e08d0db393">
+      <importedVariable Id="e2a9891b-5b28-450d-b831-67f430f77ce0" name="Schrankeoffensensor" range="Open, Not_open" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="6403d342-7d69-4aef-aa7d-04dcfb561bd7">
+      <importedVariable Id="1dc4b1c7-9c76-4287-a512-5b0708c3947e" name="Zugsensor" range="TrainDetected, NoTrainDetected" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="691eccb4-cc4b-4210-8ad1-be9a83395d85">
+      <importedVariable Id="9496baf8-c10e-431f-83f7-91eb95217704" name="BUtimer" range="Idle, Counting, Time_Up" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

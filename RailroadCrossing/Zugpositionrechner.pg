@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="a912c80c-2325-49bb-9f45-2fa131e6402f" name="Zugpositionrechner" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="cf764411-025d-42e9-8600-361ef65abba4" name="InitialNode1">
+      <successors>
+        <transition Id="8bd506fe-3e25-4278-ae0a-78466db742e8">
+          <stateMoniker name="/a912c80c-2325-49bb-9f45-2fa131e6402f/Start_EP" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="304267f6-67ba-4a16-9737-2c6d95cb45af" name="Start_EP">
+      <successors>
+        <transition Id="35c194dc-67f7-4681-8e73-2013e9c03e88" guard="position &gt;= v_EP" label="position &gt;= v_EP">
+          <stateMoniker name="/a912c80c-2325-49bb-9f45-2fa131e6402f/EP_AP" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="81c0108a-c730-4137-8bf2-cfd3e93c835f" name="EP_AP">
+      <successors>
+        <transition Id="e9e552b9-3807-4519-9336-a4a3f9f16d93" guard="position &gt;= v_AP" label="position &gt;= v_AP">
+          <stateMoniker name="/a912c80c-2325-49bb-9f45-2fa131e6402f/AP_BEP" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="23ae5d25-34d8-45e8-b920-329403846a3c" name="AP_BEP">
+      <successors>
+        <transition Id="7e7d7d6c-6ae9-49f8-b45a-2f70c20f2d59" guard="position &gt;= v_BEP" label="position &gt;= v_BEP">
+          <stateMoniker name="/a912c80c-2325-49bb-9f45-2fa131e6402f/BEP_GP" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="ab80a2d1-935d-47e0-93f4-ab9afe582612" name="BEP_GP">
+      <successors>
+        <transition Id="b19c5bf8-f7e7-4322-aa8e-0dfa4bd5a189" guard="position &gt;= GP" label="position &gt;= GP">
+          <stateMoniker name="/a912c80c-2325-49bb-9f45-2fa131e6402f/GP_SP" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="00d829a8-01f1-48ed-b7cc-ceee5db97b47" name="GP_SP">
+      <successors>
+        <transition Id="2b4c5c16-bfb9-4b0f-aace-5f26a2aca5a9" guard="position &gt;= SP" label="position &gt;= SP">
+          <stateMoniker name="/a912c80c-2325-49bb-9f45-2fa131e6402f/SP_End" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="b1e3d8a8-4cb8-4c9a-a21d-4d1fa2e1dec9" name="SP_End" />
+  </states>
+  <variables>
+    <programGraphHasVariables Id="576125d0-4ac2-4d7e-84fc-9bef5e4a8a30">
+      <variable Id="f2776664-a4be-41b6-8cd0-007ccec88a89" name="z" range="35" />
+    </programGraphHasVariables>
+  </variables>
+  <macros>
+    <programGraphHasMacros Id="6e38f66e-5bb3-481e-9e83-e19c2c19ef15">
+      <macro Id="3c0326b5-999a-4294-8f1e-3d881eb1cc27" name="v_BEP" body="GP - z - (speed * speed) / (2 * a)" />
+    </programGraphHasMacros>
+    <programGraphHasMacros Id="d93ab8b2-ffbe-4890-bfeb-4dee533da226">
+      <macro Id="bbfc09fe-366a-4fed-8f5d-db49f16e94ab" name="v_AP" body="GP - z - (speed * speed) / (2 * a) - 2 * c * speed" />
+    </programGraphHasMacros>
+    <programGraphHasMacros Id="0d13d413-062d-46c7-bc0d-ded35e438126">
+      <macro Id="bed9eb7b-90b8-4a1d-8edb-38cdabc5b92d" name="v_EP" body="GP - z - (speed * speed) / (2 * a) - 2 * c * speed - speed * (t + c)" />
+    </programGraphHasMacros>
+  </macros>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="f5f50599-f08e-41df-8605-31c964c2a8f8">
+      <importedVariable Id="0c8cc067-e436-44f5-97ca-26562f92a309" name="Hodometer.position" range="0..1500" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="64481f15-1be4-4996-84e7-04cc53655ea6">
+      <importedVariable Id="9659072c-2784-443d-8ab2-b9ec03eb7097" name="Bremse.a" range="11" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="b4801f46-b97c-4a01-a892-2239550d4c7a">
+      <importedVariable Id="c9355bec-b654-4cac-a325-418d85f0cc5c" name="Hodometer.speed" range="0..44" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="08001cc0-90ad-4bf5-a4da-bb13f652e3f8">
+      <importedVariable Id="4e4e872b-46e3-4929-830c-251a8bea2653" name="Zugfunkmodul.c" range="2" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="16d89a2f-d7d3-4416-8d9f-0a7d1305782d">
+      <importedVariable Id="31a0279b-da55-4d77-9158-86b8e10184ce" name="Schrankenmotor.t" range="5" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="77c9a3be-978e-4202-a778-b05be9cc42ee">
+      <importedVariable Id="2b56f898-1e6d-41f4-8910-138787b28e31" name="Zug.GP" range="1000" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="1fe048cd-92c2-4129-a968-bc583d5ca826">
+      <importedVariable Id="531758a9-18c2-45ad-825b-1e70ec8224de" name="Zug.SP" range="1050" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

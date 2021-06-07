@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="1677f56b-3550-4540-a563-7540f4ded83c" name="Schrankenmotor" type="Actuator" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="837d45f0-63be-4cd5-a829-096421c4bb8a" name="InitialNode1">
+      <successors>
+        <transition Id="782b80a3-9f67-4ffa-9fd9-ee3a1db1df59">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Idle" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="489af903-6db6-43d7-8aa7-44d419a42e58" name="Idle">
+      <successors>
+        <transition Id="09faa5d8-1625-479d-b906-760c0bb4b492" guard="BUSteuerung == Opening" label="BUSteuerung == Opening" precondition="true">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Opening" />
+        </transition>
+        <transition Id="c5689048-589a-43c3-8322-7f21bcad9479" guard="BUSteuerung == Closing" label="BUSteuerung == Closing" precondition="true">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Closing" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="f376d0eb-0d29-4255-ba0c-616c5f6be7d6" name="Opening">
+      <successors>
+        <transition Id="fbdc598d-f39f-47c3-bff8-f35b5f23071e" guard="angle == t" label="angle == t">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Idle" />
+        </transition>
+        <transition Id="00613d1d-c228-4276-b913-4c77665e0e52" guard="angle &lt; t" action="angle := angle + 1" label="angle &lt; t // angle := angle + 1" precondition="angle &lt; t">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Opening" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="2e119417-6d45-4ea0-84ab-6d7114ea22f5" name="Closing">
+      <successors>
+        <transition Id="7b5a5702-5329-495e-abab-79c6cf071acd" guard="angle == 0" label="angle == 0">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Idle" />
+        </transition>
+        <transition Id="d9ea5f68-0d4b-49ed-9266-2e1d5dd57024" guard="angle &gt; 0" action="angle := angle - 1" label="angle &gt; 0 // angle := angle - 1" precondition="angle &gt; 0">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Closing" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="b90b5be5-3ea1-4245-8c8d-c4b6b6ddc088">
+      <variable Id="7ca9b8c6-c986-4027-b809-a7f5ab328c68" name="t" range="5" />
+    </programGraphHasVariables>
+  </variables>
+  <comments>
+    <programGraphHasComments Id="c2743211-615b-482a-9e5a-9be401ede61d">
+      <comment Id="099485ca-9f5b-47ab-923e-bde7f8073e3b" text="angle == t when open&#xD;&#xA;angle == 0 when closed&#xD;&#xA;t represents how much time it takes to close or open" />
+    </programGraphHasComments>
+  </comments>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="5f7816e1-d984-42ba-bebc-36b153ee95f1">
+      <importedVariable Id="6615aa6c-f354-484f-bae1-6e2393af98d1" name="BUSteuerung" range="Idle, Closing, Secured, Opening" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="791bb5b5-1f60-4c97-a881-d1150c61ed22">
+      <importedVariable Id="1acb0b8a-9c9e-4e44-9aa5-6bfa1cadec96" name="Schrankenbaum.angle" range="0..5" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

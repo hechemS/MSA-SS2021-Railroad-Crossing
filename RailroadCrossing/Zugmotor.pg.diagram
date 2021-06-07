@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraphDslDiagram dslVersion="1.0.0.0" Id="2ae1e5b0-c0ca-4f7f-81b3-3c2dd9627e67" absoluteBounds="0, 0, 11, 8.5" name="ProgramGraphDsl1">
+  <programGraphMoniker Id="69e40820-1007-4619-aa94-2bc0cab8b39b" />
+  <nestedChildShapes>
+    <stateShape Id="91486969-406b-43dc-9bad-583498243f75" absoluteBounds="3.75, 2.625, 1, 0.5">
+      <stateMoniker name="/69e40820-1007-4619-aa94-2bc0cab8b39b/On" />
+    </stateShape>
+    <initialStateShape Id="9ffbf4db-5b65-45b7-8c7b-cf03d365ccb0" absoluteBounds="2.75, 2.875, 0.125, 0.125">
+      <initialNodeMoniker name="/69e40820-1007-4619-aa94-2bc0cab8b39b/InitialNode1" />
+    </initialStateShape>
+    <transitionConnector Id="8f583146-bfd7-4a03-bab0-6dcd32c74656" edgePoints="[(2.875 : 2.9375); (3.75 : 2.9375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <transitionMoniker Id="af3b7bb6-3797-4a47-a0dd-501dea068220" />
+      <relativeChildShapes />
+      <moveableDecoratorHostShapes>
+        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="3.080963134765625, 2.6875, 0.4335733950138092, 0.181884765625" shapeFieldName="Label" />
+      </moveableDecoratorHostShapes>
+      <nodes>
+        <initialStateShapeMoniker Id="9ffbf4db-5b65-45b7-8c7b-cf03d365ccb0" />
+        <stateShapeMoniker Id="91486969-406b-43dc-9bad-583498243f75" />
+      </nodes>
+    </transitionConnector>
+    <transitionConnector Id="e2352d87-c8e0-4fe1-99a8-6b62af0debd1" edgePoints="[(4.09653846153846 : 3.125); (4.09653846153846 : 3.375); (4.41076923076923 : 3.375); (4.41076923076923 : 3.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <transitionMoniker Id="13a261d9-b5c9-4813-aef7-e85b1ec30176" />
+      <relativeChildShapes />
+      <moveableDecoratorHostShapes>
+        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="3.923553466796875, 3.4375, 0.73569738864898682, 0.181884765625" shapeFieldName="Label" />
+      </moveableDecoratorHostShapes>
+      <nodes>
+        <stateShapeMoniker Id="91486969-406b-43dc-9bad-583498243f75" />
+        <stateShapeMoniker Id="91486969-406b-43dc-9bad-583498243f75" />
+      </nodes>
+    </transitionConnector>
+  </nestedChildShapes>
+</programGraphDslDiagram>

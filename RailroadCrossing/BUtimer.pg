@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="4be5fe3b-8377-4b45-ae1e-d1e776c1df98" name="BUtimer" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <state Id="7eb9153d-6242-4973-813d-a9a260f2c15a" name="Idle">
+      <successors>
+        <transition Id="ac9cdde9-b18c-48bc-99a8-ff4e12341008" guard="Schrankegeschlossensensor == Closed &amp;&amp; Schrankeoffensensor == Not_open" action="time := 0" label="Schrankegeschlossensensor == Closed &amp;&amp; Schrankeoffensensor == Not_open // time := 0" precondition="auto">
+          <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Counting" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="ff7c2389-9282-4a38-8be0-cb63750f9b61" name="Counting">
+      <successors>
+        <transition Id="ce57d625-edfc-4047-ba42-5d3bf89a5f6f" guard="time == max_time" label="time == max_time">
+          <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Time_Up" />
+        </transition>
+        <transition Id="c9dd3aed-5b8d-4973-bded-575cb4051776" guard="time &lt; max_time" action="time := time + 1" label="time &lt; max_time // time := time + 1" precondition="auto">
+          <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Counting" />
+        </transition>
+        <transition Id="7ec654f5-7fb4-48f5-8e72-cebdb7f825ab" guard="Schrankeoffensensor == Open" label="Schrankeoffensensor == Open">
+          <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Idle" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="54fe963c-b099-4d90-81e0-26bed1402a56" name="Time_Up" />
+    <initialNode Id="54ae3695-faf0-4b90-96aa-25b5f6c1008a" name="InitialNode1">
+      <successors>
+        <transition Id="585e2c4e-1551-4b98-a9b1-49b3281e8368">
+          <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Idle" />
+        </transition>
+      </successors>
+    </initialNode>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="899097a6-bd8c-47e7-a6bb-39337edb239d">
+      <variable Id="42fd8976-6d10-4e07-8965-92f5107fa714" name="time" range="0..300" />
+    </programGraphHasVariables>
+  </variables>
+  <macros>
+    <programGraphHasMacros Id="f6b17504-3017-41d5-9526-5089040b5bb1">
+      <macro Id="a9d0df31-3a40-4074-808b-bf319397b8c6" name="max_time" body="300" />
+    </programGraphHasMacros>
+  </macros>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="c2ff03d5-999d-459a-837f-6da1a51e0ae1">
+      <importedVariable Id="27fd0051-af13-4211-bde0-17253a59d738" name="Schrankegeschlossensensor" range="Not_closed, Closed" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="b4b9f6ce-3c2b-408f-8838-e7a4429f36da">
+      <importedVariable Id="44d375c2-02bf-4f63-b964-b3c050359917" name="Schrankeoffensensor" range="Open, Not_open" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

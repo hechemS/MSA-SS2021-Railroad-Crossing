@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="0b45841c-a44f-4b4a-a3aa-3dd845da733f" name="Schrankenbaum" type="Environment" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="ae16f2e0-19ed-4d97-b32a-26bff19bdc9c" name="InitialNode1">
+      <successors>
+        <transition Id="c56a5b41-4070-49a7-aed7-b622f6e7877d" guard="angle == 5" label="angle == 5">
+          <stateMoniker name="/0b45841c-a44f-4b4a-a3aa-3dd845da733f/Open" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="7eabe745-5242-4313-b770-c3e8bbb95155" name="Open">
+      <successors>
+        <transition Id="b2a95f3a-120c-4e0b-86b6-93eceb9bbe3a" guard="angle &lt; 5" label="angle &lt; 5">
+          <stateMoniker name="/0b45841c-a44f-4b4a-a3aa-3dd845da733f/Closing" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="b995c162-f951-4c34-b83e-8077be30d13f" name="Closing">
+      <successors>
+        <transition Id="c233f886-77d1-4528-bbf4-9579d8638a5d" guard="angle == 0" label="angle == 0">
+          <stateMoniker name="/0b45841c-a44f-4b4a-a3aa-3dd845da733f/Closed" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="1f19734d-d76a-4f15-aeb6-5ad1a2f88532" name="Closed">
+      <successors>
+        <transition Id="1a5c0511-50b5-41be-b435-306c6b968ca4" guard="angle &gt; 0" label="angle &gt; 0">
+          <stateMoniker name="/0b45841c-a44f-4b4a-a3aa-3dd845da733f/Opening" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="93435f4e-bb53-4800-b713-bf7af694fa74" name="Opening">
+      <successors>
+        <transition Id="09946035-e3bd-409d-80a1-fe488696eca9" guard="angle == 5" label="angle == 5">
+          <stateMoniker name="/0b45841c-a44f-4b4a-a3aa-3dd845da733f/Open" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="b4087e31-515a-4816-b585-615d83c40363">
+      <variable Id="bce1e260-b02a-4977-a6b8-712a9bd4cb45" name="angle" range="0..5" />
+    </programGraphHasVariables>
+  </variables>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="2bb855d2-10a6-443f-afec-84b4f212e718">
+      <importedVariable Id="46eeec32-6525-4a25-800b-1ef962b1fc4b" name="Schrankenmotor" range="Idle, Opening, Closing" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

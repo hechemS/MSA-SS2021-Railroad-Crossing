@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="69e40820-1007-4619-aa94-2bc0cab8b39b" name="Zugmotor" type="Actuator" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <state Id="ef6e98ce-0392-4e24-b068-7fe8c28a87d7" name="On">
+      <successors>
+        <transition Id="13a261d9-b5c9-4813-aef7-e85b1ec30176" action="d := d + v" label="// d := d + v" precondition="d &lt; 1500 - v">
+          <stateMoniker name="/69e40820-1007-4619-aa94-2bc0cab8b39b/On" />
+        </transition>
+      </successors>
+    </state>
+    <initialNode Id="c0d88c48-590d-4272-9393-5edcca77b022" name="InitialNode1">
+      <successors>
+        <transition Id="af3b7bb6-3797-4a47-a0dd-501dea068220" guard="d == 0" label="d == 0">
+          <stateMoniker name="/69e40820-1007-4619-aa94-2bc0cab8b39b/On" />
+        </transition>
+      </successors>
+    </initialNode>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="31499208-bb74-4af7-b810-5505163af0f9">
+      <importedVariable Id="f09a5245-d030-48bf-90d3-7686499c813f" name="Zug.d" range="0..1500" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="08f60992-3976-412f-86be-a5757be2961c">
+      <importedVariable Id="4e2a8c7f-f7d2-49d8-b442-3fa3d468ef7b" name="Zug.v" range="0..44" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraphDslDiagram dslVersion="1.0.0.0" Id="abb8b892-ea01-47ab-9d95-64e209f6d25d" absoluteBounds="0, 0, 11, 8.5" name="ProgramGraphDsl1">
+  <programGraphMoniker Id="9291ce3f-8412-4e79-ac1d-f911864cdbe3" />
+  <nestedChildShapes>
+    <stateShape Id="3af4103b-8fca-48ac-853e-287f71075731" absoluteBounds="5.625, 3.625, 1, 0.5">
+      <stateMoniker name="/9291ce3f-8412-4e79-ac1d-f911864cdbe3/TrainDetected" />
+    </stateShape>
+    <initialStateShape Id="027baa64-a912-49fa-b04a-6ab6ea2bde54" absoluteBounds="2.375, 3.75, 0.125, 0.125">
+      <initialNodeMoniker name="/9291ce3f-8412-4e79-ac1d-f911864cdbe3/InitialNode1" />
+    </initialStateShape>
+    <stateShape Id="1ab65f9e-1a27-4701-a39e-4a8cfc0a1ba1" absoluteBounds="3.25, 3.625, 1.125, 0.5">
+      <stateMoniker name="/9291ce3f-8412-4e79-ac1d-f911864cdbe3/NoTrainDetected" />
+    </stateShape>
+    <transitionConnector Id="9c641174-b7b5-46b1-8f04-e680cc325558" edgePoints="[(2.5 : 3.8125); (3.25 : 3.8125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <transitionMoniker Id="ac04f284-09e3-4421-bf81-89afc38ce577" />
+      <relativeChildShapes />
+      <nodes>
+        <initialStateShapeMoniker Id="027baa64-a912-49fa-b04a-6ab6ea2bde54" />
+        <stateShapeMoniker Id="1ab65f9e-1a27-4701-a39e-4a8cfc0a1ba1" />
+      </nodes>
+    </transitionConnector>
+    <transitionConnector Id="05353cbe-bd08-4f69-a0bb-c5242b721da0" edgePoints="[(4.375 : 3.875); (5.625 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <transitionMoniker Id="d9c6bf47-3dd4-4657-9144-ffc37c7cb9da" />
+      <relativeChildShapes />
+      <moveableDecoratorHostShapes>
+        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="4.8125, 3.9375, 0.50467932224273682, 0.181884765625" shapeFieldName="Label" />
+      </moveableDecoratorHostShapes>
+      <nodes>
+        <stateShapeMoniker Id="1ab65f9e-1a27-4701-a39e-4a8cfc0a1ba1" />
+        <stateShapeMoniker Id="3af4103b-8fca-48ac-853e-287f71075731" />
+      </nodes>
+    </transitionConnector>
+  </nestedChildShapes>
+</programGraphDslDiagram>

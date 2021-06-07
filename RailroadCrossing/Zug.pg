@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="cfb71804-5cf8-432d-beb1-57f4d63728ea" name="Zug" type="Environment" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="ea83b3f2-a432-4793-bc3f-8416d6d071a9" name="InitialNode1">
+      <successors>
+        <transition Id="af4960e6-5f74-4208-8231-94e5714d9596">
+          <stateMoniker name="/cfb71804-5cf8-432d-beb1-57f4d63728ea/Idle" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="80f23c6d-719c-4d9f-af4b-e300ea1658c2" name="Idle" />
+  </states>
+  <variables>
+    <programGraphHasVariables Id="187f6c31-3f0f-4c9e-a237-5a9fa6438317">
+      <variable Id="b6f37c35-8228-48c8-af8a-aa20d246cfb4" name="d" range="0..1500" />
+    </programGraphHasVariables>
+    <programGraphHasVariables Id="3d314365-a5f5-4de5-b87c-bb4093f32813">
+      <variable Id="9f1e2fdf-39c7-46d9-9e98-29c93498aafd" name="v" range="0..44" />
+    </programGraphHasVariables>
+    <programGraphHasVariables Id="3f8a2027-c983-4bee-986f-5eca1f69d95a">
+      <variable Id="a59b8e1f-6675-4038-ad3c-e11b82705c01" name="GP" range="1000" />
+    </programGraphHasVariables>
+    <programGraphHasVariables Id="2546e556-53f7-4219-9679-44291f65e3e0">
+      <variable Id="1e2aa719-ec51-4d8d-81be-1f198bfaf589" name="SP" range="1050" />
+    </programGraphHasVariables>
+  </variables>
+</programGraph>

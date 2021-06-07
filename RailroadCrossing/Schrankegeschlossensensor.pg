@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="fa8430db-dc1f-4895-9460-4d079b8e6b4d" name="Schrankegeschlossensensor" type="Sensor" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <state Id="9c8654b1-6b90-40d8-a705-0586825823b9" name="Not_closed">
+      <successors>
+        <transition Id="19029242-0bde-458f-87dd-a42ed289e3c7" guard="Schrankenbaum == Closed" label="Schrankenbaum == Closed">
+          <stateMoniker name="/fa8430db-dc1f-4895-9460-4d079b8e6b4d/Closed" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="a949ca69-d06c-4540-b013-5ca4be73ada6" name="Closed">
+      <successors>
+        <transition Id="7a51ee95-2343-4dc8-9a23-ac1f62d65cde" guard="Schrankenbaum != Closed" label="Schrankenbaum != Closed">
+          <stateMoniker name="/fa8430db-dc1f-4895-9460-4d079b8e6b4d/Not_closed" />
+        </transition>
+      </successors>
+    </state>
+    <initialNode Id="4d106c1c-a337-4e89-a76b-d45a9b1c706e" name="InitialNode1">
+      <successors>
+        <transition Id="47f24ce4-c262-45fd-9604-a2f31f76669f">
+          <stateMoniker name="/fa8430db-dc1f-4895-9460-4d079b8e6b4d/Not_closed" />
+        </transition>
+      </successors>
+    </initialNode>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="1614e951-5bba-4af3-aaec-c654de9e3432">
+      <importedVariable Id="ec0739b3-8e3c-43d3-a009-e44eadbb95a5" name="Schrankenbaum" range="Open, Closing, Closed, Opening" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

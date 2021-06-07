@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9291ce3f-8412-4e79-ac1d-f911864cdbe3" name="Zugsensor" type="Sensor" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <state Id="79fe9466-a8da-46fb-aa23-9498909208d2" name="TrainDetected" />
+    <initialNode Id="1094f7e1-3cd3-4439-8689-147ebcae6e10" name="InitialNode1">
+      <successors>
+        <transition Id="ac04f284-09e3-4421-bf81-89afc38ce577">
+          <stateMoniker name="/9291ce3f-8412-4e79-ac1d-f911864cdbe3/NoTrainDetected" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="3199f312-a066-4c56-9545-2eeee844c3d9" name="NoTrainDetected">
+      <successors>
+        <transition Id="d9c6bf47-3dd4-4657-9144-ffc37c7cb9da" guard="d &gt;= SP" label="d &gt;= SP">
+          <stateMoniker name="/9291ce3f-8412-4e79-ac1d-f911864cdbe3/TrainDetected" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="f6d86e58-62e8-42b6-9b7e-2c5bcf98a345">
+      <importedVariable Id="5964bda8-d00b-4d9b-bbdb-10a1209867e0" name="Zug.d" range="0..1500" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="ec9f0850-42d3-437b-b072-14472f3651f6">
+      <importedVariable Id="2f540e2d-1243-4767-a8b5-2e3c490d33ba" name="Zug.SP" range="1050" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

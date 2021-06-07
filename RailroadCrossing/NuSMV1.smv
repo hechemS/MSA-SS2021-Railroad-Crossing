@@ -1,0 +1,209 @@
+
+MODULE _VARS
+	VAR
+		V_Bremse : {L_Off, L_On};
+		V_a : {11};
+		V_Zugsteuerung : {L_Moving, L_Notifying, L_Inquiring, L_Breaking};
+		V_v : 0..44;
+		V_BUfunkmodul : {L_idle, L_Notification_Recieved, L_Confimation_Request, L_Confirmation_Pending, L_Confirmed};
+		V_buf_time : 0..2;
+		V_Zugfunkmodul : {L_idle, L_Notified, L_Inquired, L_Confirmed, L_Notification_Pending, L_Query_Pending};
+		V_BUSteuerung : {L_Idle, L_Closing, L_Secured, L_Opening};
+		V_c : {2};
+		V_Schrankegeschlossensensor : {L_Not_closed, L_Closed};
+		V_Schrankeoffensensor : {L_Open, L_Not_open};
+		V_Zugsensor : {L_TrainDetected, L_NoTrainDetected};
+		V_BUtimer : {L_Idle, L_Counting, L_Time_Up};
+		V_time : 0..300;
+		V_Hodometer : {L_Measuring};
+		V_position : 0..1500;
+		V_speed : 0..44;
+		V_d : 0..1500;
+		V_Schrankenbaum : {L_Open, L_Closing, L_Closed, L_Opening};
+		V_angle : 0..5;
+		V_Schrankenmotor : {L_Idle, L_Opening, L_Closing};
+		V_t : {5};
+		V_Zug : {L_Idle};
+		V_GP : {1000};
+		V_SP : {1050};
+		V_zf_time : 0..2;
+		V_Zugmotor : {L_On};
+		V_Zugpositionrechner : {L_Start_EP, L_EP_AP, L_AP_BEP, L_BEP_GP, L_GP_SP, L_SP_End};
+		V_z : {35};
+	TRANS
+		next(V_a) = V_a & next(V_c) = V_c & next(V_t) = V_t & next(V_GP) = V_GP & next(V_SP) = V_SP & next(V_z) = V_z;
+MODULE _P_Bremse(v)
+	INIT
+		(v.V_Bremse = L_Off) & (TRUE)
+	TRANS
+		 ( v.V_Bremse = L_Off & next(v.V_Bremse) = L_On & (v.V_Zugsteuerung = L_Breaking) & (next(v.V_v) = v.V_v))  |
+		 ( v.V_Bremse = L_On & next(v.V_Bremse) = L_On & ((v.V_v >= v.V_a) & (v.V_v >= v.V_a)) & (next(v.V_v) = (v.V_v - v.V_a)))  |
+		 ( v.V_Bremse = L_On & next(v.V_Bremse) = L_On & ((v.V_v < v.V_a) & (v.V_v < v.V_a)) & (next(v.V_v) = 0))  |
+		 ( v.V_Bremse = L_Off & next(v.V_Bremse) = L_Off & !(v.V_Zugsteuerung = L_Breaking) & (next(v.V_v) = v.V_v))  |
+		 ( v.V_Bremse = L_On & next(v.V_Bremse) = L_On & (!((v.V_v >= v.V_a) & (v.V_v >= v.V_a)) & !((v.V_v < v.V_a) & (v.V_v < v.V_a))) & (next(v.V_v) = v.V_v));
+MODULE _P_BUfunkmodul(v)
+	INIT
+		(v.V_BUfunkmodul = L_idle) & (TRUE)
+	TRANS
+		 ( v.V_BUfunkmodul = L_idle & next(v.V_BUfunkmodul) = L_Notification_Recieved & (v.V_Zugfunkmodul = L_Notified) & (next(v.V_buf_time) = v.V_buf_time))  |
+		 ( v.V_BUfunkmodul = L_Notification_Recieved & next(v.V_BUfunkmodul) = L_Confimation_Request & (v.V_Zugfunkmodul = L_Inquired) & (next(v.V_buf_time) = v.V_buf_time))  |
+		 ( v.V_BUfunkmodul = L_Confimation_Request & next(v.V_BUfunkmodul) = L_Confirmation_Pending & (v.V_BUSteuerung = L_Secured) & (next(v.V_buf_time) = 0))  |
+		 ( v.V_BUfunkmodul = L_Confirmation_Pending & next(v.V_BUfunkmodul) = L_Confirmed & (v.V_buf_time = v.V_c) & (next(v.V_buf_time) = v.V_buf_time))  |
+		 ( v.V_BUfunkmodul = L_Confirmation_Pending & next(v.V_BUfunkmodul) = L_Confirmation_Pending & ((v.V_buf_time < v.V_c) & (v.V_buf_time < v.V_c)) & (next(v.V_buf_time) = (v.V_buf_time + 1)))  |
+		 ( v.V_BUfunkmodul = L_idle & next(v.V_BUfunkmodul) = L_idle & !(v.V_Zugfunkmodul = L_Notified) & (next(v.V_buf_time) = v.V_buf_time))  |
+		 ( v.V_BUfunkmodul = L_Notification_Recieved & next(v.V_BUfunkmodul) = L_Notification_Recieved & !(v.V_Zugfunkmodul = L_Inquired) & (next(v.V_buf_time) = v.V_buf_time))  |
+		 ( v.V_BUfunkmodul = L_Confimation_Request & next(v.V_BUfunkmodul) = L_Confimation_Request & !(v.V_BUSteuerung = L_Secured) & (next(v.V_buf_time) = v.V_buf_time))  |
+		 ( v.V_BUfunkmodul = L_Confirmation_Pending & next(v.V_BUfunkmodul) = L_Confirmation_Pending & (!(v.V_buf_time = v.V_c) & !((v.V_buf_time < v.V_c) & (v.V_buf_time < v.V_c))) & (next(v.V_buf_time) = v.V_buf_time))  |
+		 ( v.V_BUfunkmodul = L_Confirmed & next(v.V_BUfunkmodul) = L_Confirmed & TRUE & (next(v.V_buf_time) = v.V_buf_time));
+MODULE _P_BUSteuerung(v)
+	INIT
+		(v.V_BUSteuerung = L_Idle) & (TRUE)
+	TRANS
+		 ( v.V_BUSteuerung = L_Idle & next(v.V_BUSteuerung) = L_Closing & (v.V_BUfunkmodul = L_Notification_Recieved) & (TRUE))  |
+		 ( v.V_BUSteuerung = L_Closing & next(v.V_BUSteuerung) = L_Secured & ((v.V_Schrankegeschlossensensor = L_Closed) & (v.V_Schrankeoffensensor = L_Not_open)) & (TRUE))  |
+		 ( v.V_BUSteuerung = L_Secured & next(v.V_BUSteuerung) = L_Opening & ((v.V_Zugsensor = L_TrainDetected) | (v.V_BUtimer = L_Time_Up)) & (TRUE))  |
+		 ( v.V_BUSteuerung = L_Opening & next(v.V_BUSteuerung) = L_Idle & (v.V_Schrankeoffensensor = L_Open) & (TRUE))  |
+		 ( v.V_BUSteuerung = L_Idle & next(v.V_BUSteuerung) = L_Idle & !(v.V_BUfunkmodul = L_Notification_Recieved) & (TRUE))  |
+		 ( v.V_BUSteuerung = L_Closing & next(v.V_BUSteuerung) = L_Closing & !((v.V_Schrankegeschlossensensor = L_Closed) & (v.V_Schrankeoffensensor = L_Not_open)) & (TRUE))  |
+		 ( v.V_BUSteuerung = L_Secured & next(v.V_BUSteuerung) = L_Secured & !((v.V_Zugsensor = L_TrainDetected) | (v.V_BUtimer = L_Time_Up)) & (TRUE))  |
+		 ( v.V_BUSteuerung = L_Opening & next(v.V_BUSteuerung) = L_Opening & !(v.V_Schrankeoffensensor = L_Open) & (TRUE));
+MODULE _P_BUtimer(v)
+	INIT
+		(v.V_BUtimer = L_Idle) & (TRUE)
+	TRANS
+		 ( v.V_BUtimer = L_Idle & next(v.V_BUtimer) = L_Counting & (((v.V_Schrankegeschlossensensor = L_Closed) & (v.V_Schrankeoffensensor = L_Not_open)) & ((0 >= 0) & (0 <= 300))) & (next(v.V_time) = 0))  |
+		 ( v.V_BUtimer = L_Counting & next(v.V_BUtimer) = L_Time_Up & (v.V_time = 300) & (next(v.V_time) = v.V_time))  |
+		 ( v.V_BUtimer = L_Counting & next(v.V_BUtimer) = L_Counting & ((v.V_time < 300) & (((v.V_time + 1) >= 0) & ((v.V_time + 1) <= 300))) & (next(v.V_time) = (v.V_time + 1)))  |
+		 ( v.V_BUtimer = L_Counting & next(v.V_BUtimer) = L_Idle & (v.V_Schrankeoffensensor = L_Open) & (next(v.V_time) = v.V_time))  |
+		 ( v.V_BUtimer = L_Idle & next(v.V_BUtimer) = L_Idle & !(((v.V_Schrankegeschlossensensor = L_Closed) & (v.V_Schrankeoffensensor = L_Not_open)) & ((0 >= 0) & (0 <= 300))) & (next(v.V_time) = v.V_time))  |
+		 ( v.V_BUtimer = L_Counting & next(v.V_BUtimer) = L_Counting & (!(v.V_time = 300) & (!((v.V_time < 300) & (((v.V_time + 1) >= 0) & ((v.V_time + 1) <= 300))) & !(v.V_Schrankeoffensensor = L_Open))) & (next(v.V_time) = v.V_time))  |
+		 ( v.V_BUtimer = L_Time_Up & next(v.V_BUtimer) = L_Time_Up & TRUE & (next(v.V_time) = v.V_time));
+MODULE _P_Hodometer(v)
+	INIT
+		(v.V_Hodometer = L_Measuring) & (TRUE)
+	TRANS
+		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & (((v.V_d >= 0) & (v.V_d <= 1500)) & ((v.V_v >= 0) & (v.V_v <= 44))) & (next(v.V_speed) = v.V_v & next(v.V_position) = v.V_d))  |
+		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & !(((v.V_d >= 0) & (v.V_d <= 1500)) & ((v.V_v >= 0) & (v.V_v <= 44))) & (next(v.V_position) = v.V_position & next(v.V_speed) = v.V_speed));
+MODULE _P_Schrankegeschlossensensor(v)
+	INIT
+		(v.V_Schrankegeschlossensensor = L_Not_closed) & (TRUE)
+	TRANS
+		 ( v.V_Schrankegeschlossensensor = L_Not_closed & next(v.V_Schrankegeschlossensensor) = L_Closed & (v.V_Schrankenbaum = L_Closed) & (TRUE))  |
+		 ( v.V_Schrankegeschlossensensor = L_Closed & next(v.V_Schrankegeschlossensensor) = L_Not_closed & (v.V_Schrankenbaum != L_Closed) & (TRUE))  |
+		 ( v.V_Schrankegeschlossensensor = L_Not_closed & next(v.V_Schrankegeschlossensensor) = L_Not_closed & !(v.V_Schrankenbaum = L_Closed) & (TRUE))  |
+		 ( v.V_Schrankegeschlossensensor = L_Closed & next(v.V_Schrankegeschlossensensor) = L_Closed & !(v.V_Schrankenbaum != L_Closed) & (TRUE));
+MODULE _P_Schrankenbaum(v)
+	INIT
+		(v.V_Schrankenbaum = L_Open) & ((v.V_angle = 5))
+	TRANS
+		 ( v.V_Schrankenbaum = L_Open & next(v.V_Schrankenbaum) = L_Closing & (v.V_angle < 5) & (TRUE))  |
+		 ( v.V_Schrankenbaum = L_Closing & next(v.V_Schrankenbaum) = L_Closed & (v.V_angle = 0) & (TRUE))  |
+		 ( v.V_Schrankenbaum = L_Closed & next(v.V_Schrankenbaum) = L_Opening & (v.V_angle > 0) & (TRUE))  |
+		 ( v.V_Schrankenbaum = L_Opening & next(v.V_Schrankenbaum) = L_Open & (v.V_angle = 5) & (TRUE))  |
+		 ( v.V_Schrankenbaum = L_Open & next(v.V_Schrankenbaum) = L_Open & !(v.V_angle < 5) & (TRUE))  |
+		 ( v.V_Schrankenbaum = L_Closing & next(v.V_Schrankenbaum) = L_Closing & !(v.V_angle = 0) & (TRUE))  |
+		 ( v.V_Schrankenbaum = L_Closed & next(v.V_Schrankenbaum) = L_Closed & !(v.V_angle > 0) & (TRUE))  |
+		 ( v.V_Schrankenbaum = L_Opening & next(v.V_Schrankenbaum) = L_Opening & !(v.V_angle = 5) & (TRUE));
+MODULE _P_Schrankenmotor(v)
+	INIT
+		(v.V_Schrankenmotor = L_Idle) & (TRUE)
+	TRANS
+		 ( v.V_Schrankenmotor = L_Idle & next(v.V_Schrankenmotor) = L_Opening & (v.V_BUSteuerung = L_Opening) & (next(v.V_angle) = v.V_angle))  |
+		 ( v.V_Schrankenmotor = L_Idle & next(v.V_Schrankenmotor) = L_Closing & (v.V_BUSteuerung = L_Closing) & (next(v.V_angle) = v.V_angle))  |
+		 ( v.V_Schrankenmotor = L_Opening & next(v.V_Schrankenmotor) = L_Idle & (v.V_angle = v.V_t) & (next(v.V_angle) = v.V_angle))  |
+		 ( v.V_Schrankenmotor = L_Opening & next(v.V_Schrankenmotor) = L_Opening & ((v.V_angle < v.V_t) & (v.V_angle < v.V_t)) & (next(v.V_angle) = (v.V_angle + 1)))  |
+		 ( v.V_Schrankenmotor = L_Closing & next(v.V_Schrankenmotor) = L_Idle & (v.V_angle = 0) & (next(v.V_angle) = v.V_angle))  |
+		 ( v.V_Schrankenmotor = L_Closing & next(v.V_Schrankenmotor) = L_Closing & ((v.V_angle > 0) & (v.V_angle > 0)) & (next(v.V_angle) = (v.V_angle - 1)))  |
+		 ( v.V_Schrankenmotor = L_Idle & next(v.V_Schrankenmotor) = L_Idle & (!(v.V_BUSteuerung = L_Opening) & !(v.V_BUSteuerung = L_Closing)) & (next(v.V_angle) = v.V_angle))  |
+		 ( v.V_Schrankenmotor = L_Opening & next(v.V_Schrankenmotor) = L_Opening & (!(v.V_angle = v.V_t) & !((v.V_angle < v.V_t) & (v.V_angle < v.V_t))) & (next(v.V_angle) = v.V_angle))  |
+		 ( v.V_Schrankenmotor = L_Closing & next(v.V_Schrankenmotor) = L_Closing & (!(v.V_angle = 0) & !((v.V_angle > 0) & (v.V_angle > 0))) & (next(v.V_angle) = v.V_angle));
+MODULE _P_Schrankeoffensensor(v)
+	INIT
+		(v.V_Schrankeoffensensor = L_Open) & (TRUE)
+	TRANS
+		 ( v.V_Schrankeoffensensor = L_Open & next(v.V_Schrankeoffensensor) = L_Not_open & (v.V_Schrankenbaum != L_Open) & (TRUE))  |
+		 ( v.V_Schrankeoffensensor = L_Not_open & next(v.V_Schrankeoffensensor) = L_Open & (v.V_Schrankenbaum = L_Open) & (TRUE))  |
+		 ( v.V_Schrankeoffensensor = L_Open & next(v.V_Schrankeoffensensor) = L_Open & !(v.V_Schrankenbaum != L_Open) & (TRUE))  |
+		 ( v.V_Schrankeoffensensor = L_Not_open & next(v.V_Schrankeoffensensor) = L_Not_open & !(v.V_Schrankenbaum = L_Open) & (TRUE));
+MODULE _P_Zug(v)
+	INIT
+		(v.V_Zug = L_Idle) & (TRUE)
+	TRANS
+		 ( v.V_Zug = L_Idle & next(v.V_Zug) = L_Idle & TRUE & (TRUE));
+MODULE _P_Zugfunkmodul(v)
+	INIT
+		(v.V_Zugfunkmodul = L_idle) & (TRUE)
+	TRANS
+		 ( v.V_Zugfunkmodul = L_idle & next(v.V_Zugfunkmodul) = L_Notification_Pending & (v.V_Zugsteuerung = L_Notifying) & (next(v.V_zf_time) = 0))  |
+		 ( v.V_Zugfunkmodul = L_Notified & next(v.V_Zugfunkmodul) = L_Query_Pending & (v.V_Zugsteuerung = L_Inquiring) & (next(v.V_zf_time) = 0))  |
+		 ( v.V_Zugfunkmodul = L_Inquired & next(v.V_Zugfunkmodul) = L_Confirmed & (v.V_BUfunkmodul = L_Confirmed) & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_Notification_Pending & next(v.V_Zugfunkmodul) = L_Notification_Pending & ((v.V_zf_time < v.V_c) & (v.V_zf_time < v.V_c)) & (next(v.V_zf_time) = (v.V_zf_time + 1)))  |
+		 ( v.V_Zugfunkmodul = L_Notification_Pending & next(v.V_Zugfunkmodul) = L_Notified & (v.V_zf_time = v.V_c) & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_Query_Pending & next(v.V_Zugfunkmodul) = L_Query_Pending & ((v.V_zf_time < v.V_c) & (v.V_zf_time < v.V_c)) & (next(v.V_zf_time) = (v.V_zf_time + 1)))  |
+		 ( v.V_Zugfunkmodul = L_Query_Pending & next(v.V_Zugfunkmodul) = L_Inquired & (v.V_zf_time = v.V_c) & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_idle & next(v.V_Zugfunkmodul) = L_idle & !(v.V_Zugsteuerung = L_Notifying) & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_Notified & next(v.V_Zugfunkmodul) = L_Notified & !(v.V_Zugsteuerung = L_Inquiring) & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_Inquired & next(v.V_Zugfunkmodul) = L_Inquired & !(v.V_BUfunkmodul = L_Confirmed) & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_Confirmed & next(v.V_Zugfunkmodul) = L_Confirmed & TRUE & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_Notification_Pending & next(v.V_Zugfunkmodul) = L_Notification_Pending & (!((v.V_zf_time < v.V_c) & (v.V_zf_time < v.V_c)) & !(v.V_zf_time = v.V_c)) & (next(v.V_zf_time) = v.V_zf_time))  |
+		 ( v.V_Zugfunkmodul = L_Query_Pending & next(v.V_Zugfunkmodul) = L_Query_Pending & (!((v.V_zf_time < v.V_c) & (v.V_zf_time < v.V_c)) & !(v.V_zf_time = v.V_c)) & (next(v.V_zf_time) = v.V_zf_time));
+MODULE _P_Zugmotor(v)
+	INIT
+		(v.V_Zugmotor = L_On) & ((v.V_d = 0))
+	TRANS
+		 ( v.V_Zugmotor = L_On & next(v.V_Zugmotor) = L_On & (v.V_d < (1500 - v.V_v)) & (next(v.V_d) = (v.V_d + v.V_v)))  |
+		 ( v.V_Zugmotor = L_On & next(v.V_Zugmotor) = L_On & !(v.V_d < (1500 - v.V_v)) & (next(v.V_d) = v.V_d));
+MODULE _P_Zugpositionrechner(v)
+	INIT
+		(v.V_Zugpositionrechner = L_Start_EP) & (TRUE)
+	TRANS
+		 ( v.V_Zugpositionrechner = L_Start_EP & next(v.V_Zugpositionrechner) = L_EP_AP & (v.V_position >= ((((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a))) - ((2 * v.V_c) * v.V_speed)) - (v.V_speed * (v.V_t + v.V_c)))) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_EP_AP & next(v.V_Zugpositionrechner) = L_AP_BEP & (v.V_position >= (((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a))) - ((2 * v.V_c) * v.V_speed))) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_AP_BEP & next(v.V_Zugpositionrechner) = L_BEP_GP & (v.V_position >= ((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a)))) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_BEP_GP & next(v.V_Zugpositionrechner) = L_GP_SP & (v.V_position >= v.V_GP) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_GP_SP & next(v.V_Zugpositionrechner) = L_SP_End & (v.V_position >= v.V_SP) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_Start_EP & next(v.V_Zugpositionrechner) = L_Start_EP & !(v.V_position >= ((((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a))) - ((2 * v.V_c) * v.V_speed)) - (v.V_speed * (v.V_t + v.V_c)))) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_EP_AP & next(v.V_Zugpositionrechner) = L_EP_AP & !(v.V_position >= (((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a))) - ((2 * v.V_c) * v.V_speed))) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_AP_BEP & next(v.V_Zugpositionrechner) = L_AP_BEP & !(v.V_position >= ((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a)))) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_BEP_GP & next(v.V_Zugpositionrechner) = L_BEP_GP & !(v.V_position >= v.V_GP) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_GP_SP & next(v.V_Zugpositionrechner) = L_GP_SP & !(v.V_position >= v.V_SP) & (TRUE))  |
+		 ( v.V_Zugpositionrechner = L_SP_End & next(v.V_Zugpositionrechner) = L_SP_End & TRUE & (TRUE));
+MODULE _P_Zugsensor(v)
+	INIT
+		(v.V_Zugsensor = L_NoTrainDetected) & (TRUE)
+	TRANS
+		 ( v.V_Zugsensor = L_NoTrainDetected & next(v.V_Zugsensor) = L_TrainDetected & (v.V_d >= v.V_SP) & (TRUE))  |
+		 ( v.V_Zugsensor = L_TrainDetected & next(v.V_Zugsensor) = L_TrainDetected & TRUE & (TRUE))  |
+		 ( v.V_Zugsensor = L_NoTrainDetected & next(v.V_Zugsensor) = L_NoTrainDetected & !(v.V_d >= v.V_SP) & (TRUE));
+MODULE _P_Zugsteuerung(v)
+	INIT
+		(v.V_Zugsteuerung = L_Moving) & ((v.V_Zugpositionrechner = L_Start_EP))
+	TRANS
+		 ( v.V_Zugsteuerung = L_Moving & next(v.V_Zugsteuerung) = L_Notifying & (v.V_Zugpositionrechner = L_EP_AP) & (TRUE))  |
+		 ( v.V_Zugsteuerung = L_Notifying & next(v.V_Zugsteuerung) = L_Inquiring & (v.V_Zugpositionrechner = L_AP_BEP) & (TRUE))  |
+		 ( v.V_Zugsteuerung = L_Inquiring & next(v.V_Zugsteuerung) = L_Breaking & ((v.V_Zugpositionrechner = L_BEP_GP) & (v.V_Zugfunkmodul != L_Confirmed)) & (TRUE))  |
+		 ( v.V_Zugsteuerung = L_Inquiring & next(v.V_Zugsteuerung) = L_Moving & (v.V_Zugfunkmodul = L_Confirmed) & (TRUE))  |
+		 ( v.V_Zugsteuerung = L_Moving & next(v.V_Zugsteuerung) = L_Moving & !(v.V_Zugpositionrechner = L_EP_AP) & (TRUE))  |
+		 ( v.V_Zugsteuerung = L_Notifying & next(v.V_Zugsteuerung) = L_Notifying & !(v.V_Zugpositionrechner = L_AP_BEP) & (TRUE))  |
+		 ( v.V_Zugsteuerung = L_Inquiring & next(v.V_Zugsteuerung) = L_Inquiring & (!((v.V_Zugpositionrechner = L_BEP_GP) & (v.V_Zugfunkmodul != L_Confirmed)) & !(v.V_Zugfunkmodul = L_Confirmed)) & (TRUE))  |
+		 ( v.V_Zugsteuerung = L_Breaking & next(v.V_Zugsteuerung) = L_Breaking & TRUE & (TRUE));
+MODULE main
+	VAR
+		v : _VARS();
+		p_Bremse : _P_Bremse(v);
+		p_BUfunkmodul : _P_BUfunkmodul(v);
+		p_BUSteuerung : _P_BUSteuerung(v);
+		p_BUtimer : _P_BUtimer(v);
+		p_Hodometer : _P_Hodometer(v);
+		p_Schrankegeschlossensensor : _P_Schrankegeschlossensensor(v);
+		p_Schrankenbaum : _P_Schrankenbaum(v);
+		p_Schrankenmotor : _P_Schrankenmotor(v);
+		p_Schrankeoffensensor : _P_Schrankeoffensensor(v);
+		p_Zug : _P_Zug(v);
+		p_Zugfunkmodul : _P_Zugfunkmodul(v);
+		p_Zugmotor : _P_Zugmotor(v);
+		p_Zugpositionrechner : _P_Zugpositionrechner(v);
+		p_Zugsensor : _P_Zugsensor(v);
+		p_Zugsteuerung : _P_Zugsteuerung(v);
+
+

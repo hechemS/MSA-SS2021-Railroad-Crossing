@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="41428121-7eb8-4d42-a655-21c58380c1b6" name="Bremse" type="Actuator" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <state Id="11f30e3d-7ed1-4ddc-9ecf-f541434b9af9" name="Off">
+      <successors>
+        <transition Id="e78d1830-0cb8-4e37-9281-973d27868a6b" guard="Zugsteuerung == Breaking" label="Zugsteuerung == Breaking">
+          <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/On" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="025b2b72-d072-4bac-bc91-3920d2ea496a" name="On">
+      <successors>
+        <transition Id="4f9c5617-ab7e-406c-a6a3-998af1c712da" guard="v &gt;= a" action="v := v - a" label="v &gt;= a // v := v - a" precondition="v &gt;= a">
+          <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/On" />
+        </transition>
+        <transition Id="8660ba81-649d-417d-bf61-93b73f91ab52" guard="v &lt; a" action="v := 0" label="v &lt; a // v := 0" precondition="v &lt; a">
+          <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/On" />
+        </transition>
+      </successors>
+    </state>
+    <initialNode Id="592155fe-f1db-4e2a-bd8f-d437ad33fba3" name="InitialNode1">
+      <successors>
+        <transition Id="9fe11ca5-6443-448a-8028-5df54ba68a50">
+          <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/Off" />
+        </transition>
+      </successors>
+    </initialNode>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="640941a0-2572-4be9-8af2-b3e0c54bfb5c">
+      <variable Id="724f228b-c0a2-468d-bdd0-53632dd77512" name="a" range="11" />
+    </programGraphHasVariables>
+  </variables>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="4e458d13-4517-4e90-a2cd-94c9088571be">
+      <importedVariable Id="470a6dd5-29bb-432d-929e-ff6667fdbe4f" name="Zugsteuerung" range="Moving, Notifying, Inquiring, Breaking" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="b960b65e-6dca-4236-a425-d1deca6b2829">
+      <importedVariable Id="bf5c9fc4-4140-49b6-876c-fb50d0e92276" name="Zug.v" range="0..44" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>
