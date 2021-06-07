@@ -3,7 +3,7 @@
   <states>
     <initialNode Id="a02f9b0f-d626-48e8-81a5-3243eb0b6785" name="InitialNode1">
       <successors>
-        <transition Id="018a958f-e6b3-4283-8f56-6fe33aa6cbad">
+        <transition Id="018a958f-e6b3-4283-8f56-6fe33aa6cbad" guard="position == d_train &amp;&amp; speed == v_train" label="position == d_train &amp;&amp; speed == v_train">
           <stateMoniker name="/56ca2f81-105a-4b2d-b42b-c4369c6f7fb8/Measuring" />
         </transition>
       </successors>

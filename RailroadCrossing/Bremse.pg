@@ -20,7 +20,7 @@
     </state>
     <initialNode Id="592155fe-f1db-4e2a-bd8f-d437ad33fba3" name="InitialNode1">
       <successors>
-        <transition Id="9fe11ca5-6443-448a-8028-5df54ba68a50">
+        <transition Id="9fe11ca5-6443-448a-8028-5df54ba68a50" guard="a == 5" label="a == 5">
           <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/Off" />
         </transition>
       </successors>
@@ -28,7 +28,7 @@
   </states>
   <variables>
     <programGraphHasVariables Id="640941a0-2572-4be9-8af2-b3e0c54bfb5c">
-      <variable Id="724f228b-c0a2-468d-bdd0-53632dd77512" name="a" range="11" />
+      <variable Id="724f228b-c0a2-468d-bdd0-53632dd77512" name="a" range="5" />
     </programGraphHasVariables>
   </variables>
   <importedVariables>

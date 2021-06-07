@@ -10,7 +10,7 @@
     </state>
     <initialNode Id="c0d88c48-590d-4272-9393-5edcca77b022" name="InitialNode1">
       <successors>
-        <transition Id="af3b7bb6-3797-4a47-a0dd-501dea068220" guard="d_train == 0" label="d_train == 0">
+        <transition Id="af3b7bb6-3797-4a47-a0dd-501dea068220">
           <stateMoniker name="/69e40820-1007-4619-aa94-2bc0cab8b39b/On" />
         </transition>
       </successors>

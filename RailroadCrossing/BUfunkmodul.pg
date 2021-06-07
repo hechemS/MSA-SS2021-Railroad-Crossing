@@ -4,31 +4,28 @@
     <state Id="79b62d8a-6251-4420-977c-4f5d24bcece1" name="idle">
       <successors>
         <transition Id="89e9bcdc-8769-439c-b0cd-90bf3c53ecf3" guard="Zugfunkmodul == Notified" label="Zugfunkmodul == Notified">
-          <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Notification_Recieved" />
+          <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Notification_Received" />
         </transition>
       </successors>
     </state>
-    <state Id="97f78919-76bf-45d5-81fe-e42cd65879ec" name="Notification_Recieved">
+    <state Id="97f78919-76bf-45d5-81fe-e42cd65879ec" name="Notification_Received">
       <successors>
         <transition Id="80c02bc9-bb8f-4dc3-8444-452eeb605f4f" guard="Zugfunkmodul == Inquired" label="Zugfunkmodul == Inquired">
-          <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Confimation_Request" />
+          <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Confirmation_Request" />
         </transition>
       </successors>
     </state>
-    <state Id="ef4d8240-6e58-48cb-a256-b0fd9919e172" name="Confimation_Request">
+    <state Id="ef4d8240-6e58-48cb-a256-b0fd9919e172" name="Confirmation_Request">
       <successors>
-        <transition Id="38936575-d2b5-41ed-b7f7-eb27f116e9dc" guard="BUSteuerung == Secured" action="buf_time := 0" label="BUSteuerung == Secured // buf_time := 0" precondition="true">
+        <transition Id="38936575-d2b5-41ed-b7f7-eb27f116e9dc" guard="BUSteuerung == Secured" label="BUSteuerung == Secured" precondition="true">
           <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Confirmation_Pending" />
         </transition>
       </successors>
     </state>
     <state Id="7801ca92-b89d-42de-97f1-6cffa12e8724" name="Confirmation_Pending">
       <successors>
-        <transition Id="ac2248da-c98f-4af6-988e-a8a7598d4816" guard="buf_time == c" label="buf_time == c">
+        <transition Id="ac2248da-c98f-4af6-988e-a8a7598d4816">
           <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Confirmed" />
-        </transition>
-        <transition Id="81fb394f-cd62-4904-b825-f5cac0d65174" guard="buf_time &lt; c" action="buf_time := buf_time + 1" label="buf_time &lt; c // buf_time := buf_time + 1" precondition="buf_time &lt; c">
-          <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Confirmation_Pending" />
         </transition>
       </successors>
     </state>
@@ -41,20 +38,12 @@
       </successors>
     </initialNode>
   </states>
-  <variables>
-    <programGraphHasVariables Id="d5443144-9cb4-4e04-aa31-f369b29321eb">
-      <variable Id="2fbd6f2a-ac65-44e2-a463-ddb36d5a5651" name="buf_time" range="0..2" />
-    </programGraphHasVariables>
-  </variables>
   <importedVariables>
     <programGraphHasImportedVariables Id="f6d3fe33-a5e6-4cd1-9eca-d8cd4061787c">
       <importedVariable Id="6fbcf29a-f328-41f8-9faf-e9ce8c62b785" name="Zugfunkmodul" range="idle, Notified, Inquired, Confirmed, Notification_Pending, Query_Pending" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="ff67c3e3-f5d0-495d-997d-e7836bc958e0">
       <importedVariable Id="23d8869b-2b91-455a-bc73-ab772d185978" name="BUSteuerung" range="Idle, Closing, Secured, Opening" />
-    </programGraphHasImportedVariables>
-    <programGraphHasImportedVariables Id="367518ee-fabb-4ed7-be81-a5b393217573">
-      <importedVariable Id="f8c39e28-185a-451a-a5c2-92ee7632e2b6" name="Zugfunkmodul.c" range="2" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

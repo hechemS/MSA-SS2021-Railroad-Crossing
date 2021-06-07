@@ -3,7 +3,7 @@
   <states>
     <state Id="5432daf1-74a3-425c-b144-ec63e7245211" name="idle">
       <successors>
-        <transition Id="979c1183-254a-4441-a630-6d4b03e8789e" guard="Zugsteuerung == Notifying" action="zf_time := 0" label="Zugsteuerung == Notifying // zf_time := 0" precondition="true">
+        <transition Id="979c1183-254a-4441-a630-6d4b03e8789e" guard="Zugsteuerung == Notifying" label="Zugsteuerung == Notifying" precondition="true">
           <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Notification_Pending" />
         </transition>
       </successors>
@@ -17,7 +17,7 @@
     </initialNode>
     <state Id="cb0af882-4993-4e52-bd6f-9d6957ea27bb" name="Notified">
       <successors>
-        <transition Id="0a093d5e-8b7c-45c5-b83d-cc8e529823b6" guard="Zugsteuerung == Inquiring" action="zf_time := 0" label="Zugsteuerung == Inquiring // zf_time := 0" precondition="true">
+        <transition Id="0a093d5e-8b7c-45c5-b83d-cc8e529823b6" guard="Zugsteuerung == Inquiring" label="Zugsteuerung == Inquiring" precondition="true">
           <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Query_Pending" />
         </transition>
       </successors>
@@ -32,39 +32,25 @@
     <state Id="2295e1f3-20e3-4a76-a0ed-86f117744b23" name="Confirmed" />
     <state Id="7316c49b-2552-41df-b636-63e6487908bd" name="Notification_Pending">
       <successors>
-        <transition Id="6a1d4858-b578-4334-a75c-8812c01ce679" guard="zf_time &lt; c" action="zf_time := zf_time + 1" label="zf_time &lt; c // zf_time := zf_time + 1" precondition="zf_time &lt; c">
-          <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Notification_Pending" />
-        </transition>
-        <transition Id="57c151be-e4e8-4014-9b85-b4b9afa637ee" guard="zf_time == c" label="zf_time == c">
+        <transition Id="57c151be-e4e8-4014-9b85-b4b9afa637ee">
           <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Notified" />
         </transition>
       </successors>
     </state>
     <state Id="bec71d7a-4294-4c22-884c-06dd87a1401d" name="Query_Pending">
       <successors>
-        <transition Id="e04ed52d-4da4-4bfe-8ba3-a400ba374afc" guard="zf_time &lt; c" action="zf_time := zf_time + 1" label="zf_time &lt; c // zf_time := zf_time + 1" precondition="zf_time &lt; c">
-          <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Query_Pending" />
-        </transition>
-        <transition Id="ad435227-b508-415b-af58-304731450d69" guard="zf_time == c" label="zf_time == c">
+        <transition Id="ad435227-b508-415b-af58-304731450d69">
           <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Inquired" />
         </transition>
       </successors>
     </state>
   </states>
-  <variables>
-    <programGraphHasVariables Id="50d2e801-e4cc-4272-971c-5882825c4943">
-      <variable Id="06a0c549-fe9e-45e2-898d-a70bbda471f0" name="zf_time" range="0..2" />
-    </programGraphHasVariables>
-    <programGraphHasVariables Id="13da0ddb-79e8-47d4-85d7-21a18fab51f4">
-      <variable Id="649b8b92-63ce-4104-bbab-052221296442" name="c" range="2" />
-    </programGraphHasVariables>
-  </variables>
   <importedVariables>
     <programGraphHasImportedVariables Id="faf71e41-bc94-49fe-8689-793600313070">
       <importedVariable Id="fbae9d09-a14f-46df-8c57-c652d58d8ab2" name="Zugsteuerung" range="Moving, Notifying, Inquiring, Breaking" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="07e0e4f6-689d-4ce6-896f-1c270fdfcea3">
-      <importedVariable Id="37dcf7a2-da6d-4b90-93e0-fce303ac710b" name="BUfunkmodul" range="idle, Notification_Recieved, Confimation_Request, Confirmation_Pending, Confirmed" />
+      <importedVariable Id="37dcf7a2-da6d-4b90-93e0-fce303ac710b" name="BUfunkmodul" range="idle, Notification_Received, Confirmation_Request, Confirmation_Pending, Confirmed" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

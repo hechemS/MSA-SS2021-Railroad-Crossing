@@ -3,7 +3,7 @@
   <states>
     <initialNode Id="cf764411-025d-42e9-8600-361ef65abba4" name="InitialNode1">
       <successors>
-        <transition Id="8bd506fe-3e25-4278-ae0a-78466db742e8">
+        <transition Id="8bd506fe-3e25-4278-ae0a-78466db742e8" guard="z == 50  &amp;&amp; c==5" label="z == 50  &amp;&amp; c==5">
           <stateMoniker name="/a912c80c-2325-49bb-9f45-2fa131e6402f/Start_EP" />
         </transition>
       </successors>
@@ -47,7 +47,10 @@
   </states>
   <variables>
     <programGraphHasVariables Id="576125d0-4ac2-4d7e-84fc-9bef5e4a8a30">
-      <variable Id="f2776664-a4be-41b6-8cd0-007ccec88a89" name="z" range="35" />
+      <variable Id="f2776664-a4be-41b6-8cd0-007ccec88a89" name="z" range="50" />
+    </programGraphHasVariables>
+    <programGraphHasVariables Id="f509758f-c4d2-4c6d-b1ba-00b2a0d5ceac">
+      <variable Id="fccff183-775c-4568-b6e9-20eb429a5c22" name="c" range="5" />
     </programGraphHasVariables>
   </variables>
   <macros>
@@ -66,13 +69,10 @@
       <importedVariable Id="0c8cc067-e436-44f5-97ca-26562f92a309" name="Hodometer.position" range="0..1500" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="64481f15-1be4-4996-84e7-04cc53655ea6">
-      <importedVariable Id="9659072c-2784-443d-8ab2-b9ec03eb7097" name="Bremse.a" range="11" />
+      <importedVariable Id="9659072c-2784-443d-8ab2-b9ec03eb7097" name="Bremse.a" range="5" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="b4801f46-b97c-4a01-a892-2239550d4c7a">
       <importedVariable Id="c9355bec-b654-4cac-a325-418d85f0cc5c" name="Hodometer.speed" range="0..44" />
-    </programGraphHasImportedVariables>
-    <programGraphHasImportedVariables Id="08001cc0-90ad-4bf5-a4da-bb13f652e3f8">
-      <importedVariable Id="4e4e872b-46e3-4929-830c-251a8bea2653" name="Zugfunkmodul.c" range="2" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="16d89a2f-d7d3-4416-8d9f-0a7d1305782d">
       <importedVariable Id="31a0279b-da55-4d77-9158-86b8e10184ce" name="Schrankenmotor.t" range="5" />

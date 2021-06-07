@@ -3,7 +3,7 @@
   <states>
     <initialNode Id="837d45f0-63be-4cd5-a829-096421c4bb8a" name="InitialNode1">
       <successors>
-        <transition Id="782b80a3-9f67-4ffa-9fd9-ee3a1db1df59">
+        <transition Id="782b80a3-9f67-4ffa-9fd9-ee3a1db1df59" guard="t == 5" label="t == 5">
           <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Idle" />
         </transition>
       </successors>

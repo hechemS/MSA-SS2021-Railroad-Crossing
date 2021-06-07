@@ -3,7 +3,7 @@
   <states>
     <state Id="09947f08-e767-4afb-98b2-014ca939483d" name="Idle">
       <successors>
-        <transition Id="50fa1d39-6851-4028-b7b8-85014c1d8049" guard="BUfunkmodul == Notification_Recieved" label="BUfunkmodul == Notification_Recieved">
+        <transition Id="50fa1d39-6851-4028-b7b8-85014c1d8049" guard="BUfunkmodul == Notification_Received" label="BUfunkmodul == Notification_Received">
           <stateMoniker name="/1dd43417-037d-4fbf-8074-ca90ea42fe23/Closing" />
         </transition>
       </successors>
@@ -39,7 +39,7 @@
   </states>
   <importedVariables>
     <programGraphHasImportedVariables Id="3adb6b9f-0fcb-48ba-9870-7f650629c42e">
-      <importedVariable Id="79d0cebb-9d0a-4250-8bc8-cf7b13405319" name="BUfunkmodul" range="idle, Notification_Recieved, Confimation_Request, Confirmation_Pending, Confirmed" />
+      <importedVariable Id="79d0cebb-9d0a-4250-8bc8-cf7b13405319" name="BUfunkmodul" range="idle, Notification_Received, Confirmation_Request, Confirmation_Pending, Confirmed" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="e7b30f70-0c8e-40d2-9232-1ecb865c080f">
       <importedVariable Id="9f7ce96a-116a-4138-8ac2-07341aea52fb" name="Schrankegeschlossensensor" range="Not_closed, Closed" />
