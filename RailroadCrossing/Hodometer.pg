@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="0baf7ea6-294d-4032-81ec-0e7c09a652c3" name="Measuring">
       <successors>
-        <transition Id="147bc579-e2e4-475d-8b49-c6093f5015b3" guard="Stoerung_Hodometer != No" action="position := d_train | speed :=  v_train / 2" label="Stoerung_Hodometer != No // position := d_train | speed :=  v_train / 2" precondition="auto">
+        <transition Id="147bc579-e2e4-475d-8b49-c6093f5015b3" guard="Stoerung_Hodometer != No" action="position := d_train | speed :=  v_train/4" label="Stoerung_Hodometer != No // position := d_train | speed :=  v_train/4" precondition="auto">
           <stateMoniker name="/56ca2f81-105a-4b2d-b42b-c4369c6f7fb8/Measuring" />
         </transition>
         <transition Id="fb0bf67a-50bd-4383-8e6e-ba44a9e6cd8d" guard="Stoerung_Hodometer == No" action="position := d_train | speed := v_train" label="Stoerung_Hodometer == No // position := d_train | speed := v_train" precondition="auto">
@@ -24,7 +24,7 @@
       <variable Id="a678d757-e1f8-4e71-b3d7-a5f5529b1809" name="position" range="0..1500" />
     </programGraphHasVariables>
     <programGraphHasVariables Id="603e4d87-4199-4ef5-b2e9-35a1f888610b">
-      <variable Id="c98c351e-9b0d-464c-b2c2-a0b897affafa" name="speed" range="0..44" />
+      <variable Id="c98c351e-9b0d-464c-b2c2-a0b897affafa" name="speed" range="0..20" />
     </programGraphHasVariables>
   </variables>
   <importedVariables>
@@ -32,7 +32,7 @@
       <importedVariable Id="627bae7f-8ad2-47a5-b9eb-bc271482a582" name="Zug.d_train" range="0..1500" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="ad2839a9-092a-4b21-90d2-5fb559f53492">
-      <importedVariable Id="cd620587-e7c7-4f8e-85ee-ec934a952078" name="Zug.v_train" range="0..44" />
+      <importedVariable Id="cd620587-e7c7-4f8e-85ee-ec934a952078" name="Zug.v_train" range="0..20" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="10adfb3f-e7d7-4b88-a533-85dfc6c8265f">
       <importedVariable Id="c592cbfc-5026-4ac2-839f-c211f03736a3" name="Stoerung_Hodometer" range="No, Yes" />

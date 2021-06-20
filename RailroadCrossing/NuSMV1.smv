@@ -4,7 +4,7 @@ MODULE _VARS
 		V_Bremse : {L_Off, L_On};
 		V_a : {5};
 		V_Zugsteuerung : {L_Moving, L_Notifying, L_Inquiring, L_Breaking};
-		V_v_train : 0..44;
+		V_v_train : 0..20;
 		V_Stoerung_Bremse : {L_No, L_Yes};
 		V_BUfunkmodul : {L_idle, L_Notification_Received, L_Confirmation_Request, L_Confirmation_Pending, L_Confirmed};
 		V_Zugfunkmodul : {L_idle, L_Notified, L_Inquired, L_Confirmed, L_Notification_Pending, L_Query_Pending};
@@ -17,7 +17,7 @@ MODULE _VARS
 		V_time : 0..300;
 		V_Hodometer : {L_Measuring};
 		V_position : 0..1500;
-		V_speed : 0..44;
+		V_speed : 0..20;
 		V_d_train : 0..1500;
 		V_Stoerung_Hodometer : {L_No, L_Yes};
 		V_Schrankenbaum : {L_Open, L_Closing, L_Closed, L_Opening};
@@ -33,7 +33,7 @@ MODULE _VARS
 		V_SP : {1050};
 		V_Zugmotor : {L_On};
 		V_Zugpositionrechner : {L_Start_EP, L_EP_AP, L_AP_BEP, L_BEP_GP, L_GP_SP, L_SP_End};
-		V_z : {50};
+		V_z : {100};
 		V_c : {5};
 	TRANS
 		next(V_a) = V_a & next(V_t) = V_t & next(V_GP) = V_GP & next(V_SP) = V_SP & next(V_z) = V_z & next(V_c) = V_c;
@@ -85,9 +85,9 @@ MODULE _P_Hodometer(v)
 	INIT
 		(v.V_Hodometer = L_Measuring) & (((v.V_position = v.V_d_train) & (v.V_speed = v.V_v_train)))
 	TRANS
-		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & ((v.V_Stoerung_Hodometer != L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & (((v.V_v_train / 2) >= 0) & ((v.V_v_train / 2) <= 44)))) & (next(v.V_speed) = (v.V_v_train / 2) & next(v.V_position) = v.V_d_train))  |
-		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & ((v.V_Stoerung_Hodometer = L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & ((v.V_v_train >= 0) & (v.V_v_train <= 44)))) & (next(v.V_speed) = v.V_v_train & next(v.V_position) = v.V_d_train))  |
-		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & (!((v.V_Stoerung_Hodometer != L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & (((v.V_v_train / 2) >= 0) & ((v.V_v_train / 2) <= 44)))) & !((v.V_Stoerung_Hodometer = L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & ((v.V_v_train >= 0) & (v.V_v_train <= 44))))) & (next(v.V_position) = v.V_position & next(v.V_speed) = v.V_speed));
+		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & ((v.V_Stoerung_Hodometer != L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & (((v.V_v_train / 4) >= 0) & ((v.V_v_train / 4) <= 20)))) & (next(v.V_speed) = (v.V_v_train / 4) & next(v.V_position) = v.V_d_train))  |
+		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & ((v.V_Stoerung_Hodometer = L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & ((v.V_v_train >= 0) & (v.V_v_train <= 20)))) & (next(v.V_speed) = v.V_v_train & next(v.V_position) = v.V_d_train))  |
+		 ( v.V_Hodometer = L_Measuring & next(v.V_Hodometer) = L_Measuring & (!((v.V_Stoerung_Hodometer != L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & (((v.V_v_train / 4) >= 0) & ((v.V_v_train / 4) <= 20)))) & !((v.V_Stoerung_Hodometer = L_No) & (((v.V_d_train >= 0) & (v.V_d_train <= 1500)) & ((v.V_v_train >= 0) & (v.V_v_train <= 20))))) & (next(v.V_position) = v.V_position & next(v.V_speed) = v.V_speed));
 MODULE _P_Schrankegeschlossensensor(v)
 	INIT
 		(v.V_Schrankegeschlossensensor = L_Not_closed) & (TRUE)
@@ -184,7 +184,7 @@ MODULE _P_Stoerung_Zugsensor(v)
 		 ( v.V_Stoerung_Zugsensor = L_Yes & next(v.V_Stoerung_Zugsensor) = L_No & TRUE & (TRUE));
 MODULE _P_Zug(v)
 	INIT
-		(v.V_Zug = L_Idle) & (((((v.V_d_train = 0) & (v.V_v_train = 40)) & (v.V_GP = 1000)) & (v.V_SP = 1050)))
+		(v.V_Zug = L_Idle) & (((((v.V_d_train = 0) & (v.V_v_train = 20)) & (v.V_GP = 1000)) & (v.V_SP = 1050)))
 	TRANS
 		 ( v.V_Zug = L_Idle & next(v.V_Zug) = L_Idle & TRUE & (TRUE));
 MODULE _P_Zugfunkmodul(v)
@@ -209,7 +209,7 @@ MODULE _P_Zugmotor(v)
 		 ( v.V_Zugmotor = L_On & next(v.V_Zugmotor) = L_On & !(v.V_d_train < (1500 - v.V_v_train)) & (next(v.V_d_train) = v.V_d_train));
 MODULE _P_Zugpositionrechner(v)
 	INIT
-		(v.V_Zugpositionrechner = L_Start_EP) & (((v.V_z = 50) & (v.V_c = 5)))
+		(v.V_Zugpositionrechner = L_Start_EP) & (((v.V_z = 100) & (v.V_c = 5)))
 	TRANS
 		 ( v.V_Zugpositionrechner = L_Start_EP & next(v.V_Zugpositionrechner) = L_EP_AP & (v.V_position >= ((((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a))) - ((2 * v.V_c) * v.V_speed)) - (v.V_speed * (v.V_t + v.V_c)))) & (TRUE))  |
 		 ( v.V_Zugpositionrechner = L_EP_AP & next(v.V_Zugpositionrechner) = L_AP_BEP & (v.V_position >= (((v.V_GP - v.V_z) - ((v.V_speed * v.V_speed) / (2 * v.V_a))) - ((2 * v.V_c) * v.V_speed))) & (TRUE))  |
@@ -332,11 +332,15 @@ DEFINE
 		Time_UP := L_Time_Up;
 		TrainDetected := L_TrainDetected;
 		No := L_No;
+		Yes := L_Yes;
 
 
 -- None of the errors occured
 		noFaults := Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No;
 
+		
+-- The Hazard
+		hazard := (d_train >= GP  &  d_train < SP) & (Schrankenbaum != Closed);
 
 
 -- When the train reaches GP, the crossing should be secured
@@ -419,3 +423,78 @@ LTLSPEC  (G noFaults) -> G( Zugsensor = TrainDetected -> F(Schrankenbaum = Open)
 
 -- barrier sensors are consistent 
 LTLSPEC (G noFaults) -> ! F ( Schrankegeschlossensensor = Closed & Schrankeoffensensor = Open )
+
+
+
+
+-- Plausibilit?tschecks
+
+-- The Train might reach a non-secured crossing
+CTLSPEC EF ( (d_train >= GP  &  d_train < SP) & (Schrankenbaum != Closed) )
+
+-- (Break failure) After breaking, we won't stop before reaching GP and the speed won't be zero
+CTLSPEC EF ( Zugsteuerung = Breaking & EF(d_train > GP) & EG( v_train != 0) )
+
+-- The train will eventually break
+CTLSPEC EF ( Zugsteuerung = Breaking )
+
+-- Send an Acknowledgement although Schrankenbaum is not closed
+CTLSPEC EF (BUfunkmodul = Confirmation_Pending & Schrankenbaum!=Closed) 
+
+
+
+-- DCCA
+
+-- Single element sets of failures
+
+-- Stoerung_Bremse => SAFE
+LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Geschlossensensor => SAFE																																														
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Hodometer => CRITICAL																																																
+-- LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Schrankenmotor => SAFE																																															
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Sicherungsbestaetigung => SAFE																																													
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No ) U hazard )
+-- Stoerung_Zugfunkmodul => SAFE																																															
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Zugsensor => CRITICAL																																																
+-- LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+
+
+
+
+-- Two-element sets of failures
+
+-- Stoerung_Bremse and Stoerung_Geschlossensensor => SAFE
+LTLSPEC  ! ( (Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Bremse and Stoerung_Schrankenmotor => CRITICAL
+-- LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Bremse and Stoerung_Sicherungsbestaetigung => SAFE
+LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No ) U hazard )
+-- Stoerung_Bremse and Stoerung_Zugfunkmodul => CRITICAL
+-- LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+
+
+
+
+-- Stoerung_Geschlossensensor and Stoerung_Schrankenmotor => SAFE																																													
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Geschlossensensor and Stoerung_Sicherungsbestaetigung => SAFE																																														
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No) U hazard )
+-- Stoerung_Geschlossensensor and Stoerung_Zugfunkmodul => SAFE																																														
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+
+
+
+
+-- Stoerung_Schrankenmotor and Stoerung_Sicherungsbestaetigung => CRITICAL																																															
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No) U hazard )
+-- Stoerung_Schrankenmotor and Stoerung_Zugfunkmodul => SAFE																																												
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+
+
+-- Stoerung_Sicherungsbestaetigung and Stoerung_Zugfunkmodul => SAFE																																										
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No ) U hazard )
+

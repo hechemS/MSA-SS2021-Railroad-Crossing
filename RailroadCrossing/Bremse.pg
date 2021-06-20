@@ -36,7 +36,7 @@
       <importedVariable Id="470a6dd5-29bb-432d-929e-ff6667fdbe4f" name="Zugsteuerung" range="Moving, Notifying, Inquiring, Breaking" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="b960b65e-6dca-4236-a425-d1deca6b2829">
-      <importedVariable Id="bf5c9fc4-4140-49b6-876c-fb50d0e92276" name="Zug.v_train" range="0..44" />
+      <importedVariable Id="bf5c9fc4-4140-49b6-876c-fb50d0e92276" name="Zug.v_train" range="0..20" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="97e9f43a-a88c-4c63-86c9-78cbec15362d">
       <importedVariable Id="b261aba3-7b14-40b9-95b3-da754e0e3824" name="Stoerung_Bremse" range="No, Yes" />

@@ -3,7 +3,7 @@
   <states>
     <initialNode Id="ea83b3f2-a432-4793-bc3f-8416d6d071a9" name="InitialNode1">
       <successors>
-        <transition Id="af4960e6-5f74-4208-8231-94e5714d9596" guard="d_train == 0 &amp;&amp; v_train == 40 &amp;&amp; GP == 1000 &amp;&amp; SP == 1050" label="d_train == 0 &amp;&amp; v_train == 40 &amp;&amp; GP == 1000 &amp;&amp; SP == 1050">
+        <transition Id="af4960e6-5f74-4208-8231-94e5714d9596" guard="d_train == 0 &amp;&amp; v_train == 20 &amp;&amp; GP == 1000 &amp;&amp; SP == 1050" label="d_train == 0 &amp;&amp; v_train == 20 &amp;&amp; GP == 1000 &amp;&amp; SP == 1050">
           <stateMoniker name="/cfb71804-5cf8-432d-beb1-57f4d63728ea/Idle" />
         </transition>
       </successors>
@@ -15,7 +15,7 @@
       <variable Id="b6f37c35-8228-48c8-af8a-aa20d246cfb4" name="d_train" range="0..1500" />
     </programGraphHasVariables>
     <programGraphHasVariables Id="3d314365-a5f5-4de5-b87c-bb4093f32813">
-      <variable Id="9f1e2fdf-39c7-46d9-9e98-29c93498aafd" name="v_train" range="0..44" />
+      <variable Id="9f1e2fdf-39c7-46d9-9e98-29c93498aafd" name="v_train" range="0..20" />
     </programGraphHasVariables>
     <programGraphHasVariables Id="3f8a2027-c983-4bee-986f-5eca1f69d95a">
       <variable Id="a59b8e1f-6675-4038-ad3c-e11b82705c01" name="GP" range="1000" />

@@ -21,7 +21,7 @@
       <importedVariable Id="f09a5245-d030-48bf-90d3-7686499c813f" name="Zug.d_train" range="0..1500" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="08f60992-3976-412f-86be-a5757be2961c">
-      <importedVariable Id="4e2a8c7f-f7d2-49d8-b442-3fa3d468ef7b" name="Zug.v_train" range="0..44" />
+      <importedVariable Id="4e2a8c7f-f7d2-49d8-b442-3fa3d468ef7b" name="Zug.v_train" range="0..20" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>
