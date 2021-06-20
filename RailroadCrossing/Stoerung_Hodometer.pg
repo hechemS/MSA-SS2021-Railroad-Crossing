@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="2bd73e9d-633c-4aef-a823-3ad7c26a7043" name="Stoerung_Hodometer" type="Fault" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="41f0302c-ac34-40b2-8b48-7a5b66351d6d" name="InitialNode1">
+      <successors>
+        <transition Id="41a40f81-dac3-4295-a608-14bb30b96803">
+          <stateMoniker name="/2bd73e9d-633c-4aef-a823-3ad7c26a7043/No" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="568e7734-3f99-4d61-96ec-ec2fc75064af" name="No">
+      <successors>
+        <transition Id="8c5801ea-bd5d-47b3-b46d-a15639c3ccf8">
+          <stateMoniker name="/2bd73e9d-633c-4aef-a823-3ad7c26a7043/No" />
+        </transition>
+        <transition Id="088e3cc8-2a14-47f7-887b-55319cbce30c">
+          <stateMoniker name="/2bd73e9d-633c-4aef-a823-3ad7c26a7043/Yes" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="c73f948d-1b31-4a83-9c1c-f6df7c55d23a" name="Yes">
+      <successors>
+        <transition Id="05ad5ae7-8ff0-46cd-8074-a55349b1f227">
+          <stateMoniker name="/2bd73e9d-633c-4aef-a823-3ad7c26a7043/Yes" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <comments>
+    <programGraphHasComments Id="14d3607b-cf18-449a-b2e4-67d83bd0c93d">
+      <comment Id="27e0e7ca-977d-4b26-ae75-657ec53ceb17" text="Hodometer berechnet falsche Geschwindigkeit (nur die Hälfte der richtigen Geschwindigkeit)" />
+    </programGraphHasComments>
+  </comments>
+</programGraph>

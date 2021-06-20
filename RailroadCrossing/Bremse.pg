@@ -3,7 +3,7 @@
   <states>
     <state Id="11f30e3d-7ed1-4ddc-9ecf-f541434b9af9" name="Off">
       <successors>
-        <transition Id="e78d1830-0cb8-4e37-9281-973d27868a6b" guard="Zugsteuerung == Breaking" label="Zugsteuerung == Breaking">
+        <transition Id="e78d1830-0cb8-4e37-9281-973d27868a6b" guard="Zugsteuerung == Breaking &amp;&amp; Stoerung_Bremse == No" label="Zugsteuerung == Breaking &amp;&amp; Stoerung_Bremse == No">
           <stateMoniker name="/41428121-7eb8-4d42-a655-21c58380c1b6/On" />
         </transition>
       </successors>
@@ -37,6 +37,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="b960b65e-6dca-4236-a425-d1deca6b2829">
       <importedVariable Id="bf5c9fc4-4140-49b6-876c-fb50d0e92276" name="Zug.v_train" range="0..44" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="97e9f43a-a88c-4c63-86c9-78cbec15362d">
+      <importedVariable Id="b261aba3-7b14-40b9-95b3-da754e0e3824" name="Stoerung_Bremse" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

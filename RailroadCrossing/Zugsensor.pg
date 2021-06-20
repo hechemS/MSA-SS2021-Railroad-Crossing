@@ -11,7 +11,7 @@
     </initialNode>
     <state Id="3199f312-a066-4c56-9545-2eeee844c3d9" name="NoTrainDetected">
       <successors>
-        <transition Id="d9c6bf47-3dd4-4657-9144-ffc37c7cb9da" guard="d_train &gt;= SP" label="d_train &gt;= SP">
+        <transition Id="d9c6bf47-3dd4-4657-9144-ffc37c7cb9da" guard="d_train &gt;= SP || Stoerung_Zugsensor != No" label="d_train &gt;= SP || Stoerung_Zugsensor != No">
           <stateMoniker name="/9291ce3f-8412-4e79-ac1d-f911864cdbe3/TrainDetected" />
         </transition>
       </successors>
@@ -23,6 +23,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="ec9f0850-42d3-437b-b072-14472f3651f6">
       <importedVariable Id="2f540e2d-1243-4767-a8b5-2e3c490d33ba" name="Zug.SP" range="1050" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="9ffb2fed-354d-4c7c-847d-7d767633201c">
+      <importedVariable Id="9d8b0fda-bfe9-410d-94fe-e01055ea69b7" name="Stoerung_Zugsensor" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

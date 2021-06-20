@@ -34,6 +34,15 @@ DEFINE
 		Zugmotor:= v.V_Zugmotor;
 		Zugpositionrechner:= v.V_Zugpositionrechner;
 
+		Stoerung_Bremse := v.V_Stoerung_Bremse;
+		Stoerung_Geschlossensensor := v.V_Stoerung_Geschlossensensor;
+		Stoerung_Hodometer := v.V_Stoerung_Hodometer;
+		Stoerung_Schrankenmotor := v.V_Stoerung_Schrankenmotor;
+		Stoerung_Zugfunkmodul := v.V_Stoerung_Zugfunkmodul;
+		Stoerung_Zugsensor := v.V_Stoerung_Zugsensor;
+		Stoerung_Sicherungsbestaetigung := v.V_Stoerung_Sicherungsbestaetigung;
+
+
 		Closed := L_Closed;
 		Breaking := L_Breaking;
 		Moving := L_Moving;
@@ -56,85 +65,91 @@ DEFINE
 		On := L_On;
 		Time_UP := L_Time_Up;
 		TrainDetected := L_TrainDetected;
+		No := L_No;
+
+
+-- None of the errors occured
+		noFaults := Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No;
+
 
 
 -- When the train reaches GP, the crossing should be secured
-LTLSPEC G ( (d_train >= GP  &  d_train < SP) -> (Schrankenbaum = Closed) )
+LTLSPEC (G noFaults) -> G ( (d_train >= GP  &  d_train < SP) -> (Schrankenbaum = Closed) )
 
 
 -- Test for security distance z: After breaking, we will stop before reaching GP and the speed will be zero starting from some point
-LTLSPEC G ( (Zugsteuerung = Breaking)  -> (G(d_train < GP) & F( G(v_train = 0)) ))
+LTLSPEC (G noFaults) -> G ( (Zugsteuerung = Breaking)  -> (G(d_train < GP) & F( G(v_train = 0)) ))
 
 -- train never brakes
-LTLSPEC G (Zugsteuerung != Breaking)
+LTLSPEC (G noFaults) -> G (Zugsteuerung != Breaking)
 
 
 -- All Zugsteuerung states are reachable
-LTLSPEC F (Zugsteuerung = Moving)
-LTLSPEC F (Zugsteuerung = Notifying)
-LTLSPEC F (Zugsteuerung = Inquiring)
-LTLSPEC F (BUSteuerung = Closing)
-LTLSPEC F (BUSteuerung = Secured)
-LTLSPEC F (BUSteuerung = Opening)
+LTLSPEC (G noFaults) -> F (Zugsteuerung = Moving)
+LTLSPEC (G noFaults) -> F (Zugsteuerung = Notifying)
+LTLSPEC (G noFaults) -> F (Zugsteuerung = Inquiring)
+LTLSPEC (G noFaults) -> F (BUSteuerung = Closing)
+LTLSPEC (G noFaults) -> F (BUSteuerung = Secured)
+LTLSPEC (G noFaults) -> F (BUSteuerung = Opening)
 
 -- Provided that the train does not brake, all states will be reached: (Zugpositionrechner reaches SP_End) 
-LTLSPEC F(Zugpositionrechner=AP_BEP)  & ( G( (Zugsteuerung != Breaking) ) -> F(Zugpositionrechner=SP_End) )
+LTLSPEC (G noFaults) -> F(Zugpositionrechner=AP_BEP)  & ( G( (Zugsteuerung != Breaking) ) -> F(Zugpositionrechner=SP_End) )
 
 
 --If the brake is engaged, then the train communication module never received a secured confirmation beforehand
-LTLSPEC (F Zugsteuerung = Breaking) -> (Zugfunkmodul != Confirmed U  Zugsteuerung = Breaking)
+LTLSPEC (G noFaults) -> (F Zugsteuerung = Breaking) -> (Zugfunkmodul != Confirmed U  Zugsteuerung = Breaking)
 
 
 -- Test for communication delay c: -> Communication from train to BU
-LTLSPEC	G( (Zugfunkmodul = Notified & Zugsteuerung = Inquiring) ->  X X X (BUfunkmodul = Confirmation_Request) )
+LTLSPEC	(G noFaults) -> G( (Zugfunkmodul = Notified & Zugsteuerung = Inquiring) ->  X X X (BUfunkmodul = Confirmation_Request) )
 
 -- Test for communication delay c: -> -> Communication from BU to Train
-LTLSPEC G( ( BUfunkmodul = Confirmation_Request & BUSteuerung = Secured) -> X X X (Zugfunkmodul = Confirmed) )
+LTLSPEC (G noFaults) -> G( ( BUfunkmodul = Confirmation_Request & BUSteuerung = Secured) -> X X X (Zugfunkmodul = Confirmed) )
 
 
 -- Test for t: How much time it takes to close the übergang
-LTLSPEC G( Schrankenbaum = Open & BUSteuerung = Closing ->  F ( Schrankenbaum=Closing & (Schrankenbaum=Closing U  Schrankenbaum=Closed)  ) )
+LTLSPEC (G noFaults) -> G( Schrankenbaum = Open & BUSteuerung = Closing ->  F ( Schrankenbaum=Closing & (Schrankenbaum=Closing U  Schrankenbaum=Closed)  ) )
 
 -- Never send an Acknowledgement until Schrankenbaum is closed
-LTLSPEC (BUfunkmodul != Confirmation_Pending) U (Schrankenbaum=Closed)
+LTLSPEC (G noFaults) -> (BUfunkmodul != Confirmation_Pending) U (Schrankenbaum=Closed)
 
 -- Always send an Acknowledgement once Schrankenbaum is closed
-LTLSPEC F(Schrankenbaum=Closed & F(BUfunkmodul = Confirmed) )
+LTLSPEC (G noFaults) -> F(Schrankenbaum=Closed & F(BUfunkmodul = Confirmed) )
 
 -- After the train sends the request, it will get a response before reaching BEP 
-LTLSPEC G( Zugsteuerung = Notifying -> ( (Zugpositionrechner != BEP_GP & Zugpositionrechner != GP_SP & Zugpositionrechner != SP_End)  U Zugfunkmodul = Confirmed ) )
+LTLSPEC (G noFaults) -> G( Zugsteuerung = Notifying -> ( (Zugpositionrechner != BEP_GP & Zugpositionrechner != GP_SP & Zugpositionrechner != SP_End)  U Zugfunkmodul = Confirmed ) )
 
 
 -- Never reach time_up in BUTimer
-LTLSPEC G(BUtimer != Time_UP)
+LTLSPEC (G noFaults) -> G(BUtimer != Time_UP)
 
 
 -- When the BU closes, it will open again
-LTLSPEC F( G(Schrankenbaum = Open ) ) 
+LTLSPEC (G noFaults) -> F( G(Schrankenbaum = Open ) ) 
 
 
 -- The System does not always break
-CTLSPEC EG(Bremse != On)
+CTLSPEC  EG(Bremse != On)
 
 -- The system reaches SP
-CTLSPEC EF(d_train > SP)
+CTLSPEC  EF(d_train > SP)
 
 -- We don't receive messages that were not sent
-LTLSPEC BUfunkmodul != Notification_Received U Zugfunkmodul = Notified
-LTLSPEC BUfunkmodul != Confirmation_Request U Zugfunkmodul = Inquired
-LTLSPEC Zugfunkmodul != Confirmed U BUfunkmodul = Confirmed
+LTLSPEC (G noFaults) -> BUfunkmodul != Notification_Received U Zugfunkmodul = Notified
+LTLSPEC (G noFaults) -> BUfunkmodul != Confirmation_Request U Zugfunkmodul = Inquired
+LTLSPEC (G noFaults) -> Zugfunkmodul != Confirmed U BUfunkmodul = Confirmed
 
 -- When the barrier never closes, the train will break
-LTLSPEC  G(Schrankenbaum != Closed) -> F(Zugsteuerung = Breaking) 
+LTLSPEC  (G noFaults) -> G(Schrankenbaum != Closed) -> F(Zugsteuerung = Breaking) 
 
 -- When the train sends a closing request, the barrier will close
-LTLSPEC G( Zugsteuerung = Notifying -> F(Schrankenbaum = Closed))
+LTLSPEC (G noFaults) -> G( Zugsteuerung = Notifying -> F(Schrankenbaum = Closed))
 
 -- The barrier won't close, until the train send a request
-LTLSPEC Schrankenbaum = Open U Zugsteuerung = Notifying
+LTLSPEC (G noFaults) -> Schrankenbaum = Open U Zugsteuerung = Notifying
 
 -- The barrier will open after the train sensor is activated
-LTLSPEC  G( Zugsensor = TrainDetected -> F(Schrankenbaum = Open) ) 
+LTLSPEC  (G noFaults) -> G( Zugsensor = TrainDetected -> F(Schrankenbaum = Open) ) 
 
 -- barrier sensors are consistent 
-LTLSPEC ! F ( Schrankegeschlossensensor = Closed & Schrankeoffensensor = Open )
+LTLSPEC (G noFaults) -> ! F ( Schrankegeschlossensensor = Closed & Schrankeoffensensor = Open )

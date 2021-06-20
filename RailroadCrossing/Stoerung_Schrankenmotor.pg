@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3484c0f1-bfe5-4711-967b-3d62e3bc4134" name="Stoerung_Schrankenmotor" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="94c986c4-1bd4-4f96-a35f-a7e069c6b427" name="InitialNode1">
+      <successors>
+        <transition Id="c030ddaa-dc3c-4276-8d66-934da39263ff">
+          <stateMoniker name="/3484c0f1-bfe5-4711-967b-3d62e3bc4134/No" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="e37c3333-a01c-4dac-b1f5-0bec37a947c9" name="No">
+      <successors>
+        <transition Id="097426d2-1344-42c5-9b69-b80477efe236">
+          <stateMoniker name="/3484c0f1-bfe5-4711-967b-3d62e3bc4134/No" />
+        </transition>
+        <transition Id="e8189687-53dc-4ce1-bd16-215e4c316a7e">
+          <stateMoniker name="/3484c0f1-bfe5-4711-967b-3d62e3bc4134/Yes" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="b13ba562-d50d-4e1a-a4fb-5bec2fb6f57c" name="Yes">
+      <successors>
+        <transition Id="36504a4b-0626-4346-bbc5-83b1c89c1e50">
+          <stateMoniker name="/3484c0f1-bfe5-4711-967b-3d62e3bc4134/Yes" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+</programGraph>

@@ -10,7 +10,10 @@
     </initialNode>
     <state Id="0baf7ea6-294d-4032-81ec-0e7c09a652c3" name="Measuring">
       <successors>
-        <transition Id="147bc579-e2e4-475d-8b49-c6093f5015b3" action="position := d_train | speed := v_train" label="// position := d_train | speed := v_train" precondition="auto">
+        <transition Id="147bc579-e2e4-475d-8b49-c6093f5015b3" guard="Stoerung_Hodometer != No" action="position := d_train | speed :=  v_train / 2" label="Stoerung_Hodometer != No // position := d_train | speed :=  v_train / 2" precondition="auto">
+          <stateMoniker name="/56ca2f81-105a-4b2d-b42b-c4369c6f7fb8/Measuring" />
+        </transition>
+        <transition Id="fb0bf67a-50bd-4383-8e6e-ba44a9e6cd8d" guard="Stoerung_Hodometer == No" action="position := d_train | speed := v_train" label="Stoerung_Hodometer == No // position := d_train | speed := v_train" precondition="auto">
           <stateMoniker name="/56ca2f81-105a-4b2d-b42b-c4369c6f7fb8/Measuring" />
         </transition>
       </successors>
@@ -30,6 +33,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="ad2839a9-092a-4b21-90d2-5fb559f53492">
       <importedVariable Id="cd620587-e7c7-4f8e-85ee-ec934a952078" name="Zug.v_train" range="0..44" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="10adfb3f-e7d7-4b88-a533-85dfc6c8265f">
+      <importedVariable Id="c592cbfc-5026-4ac2-839f-c211f03736a3" name="Stoerung_Hodometer" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

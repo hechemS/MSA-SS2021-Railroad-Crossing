@@ -3,15 +3,18 @@
   <states>
     <state Id="9c8654b1-6b90-40d8-a705-0586825823b9" name="Not_closed">
       <successors>
-        <transition Id="19029242-0bde-458f-87dd-a42ed289e3c7" guard="Schrankenbaum == Closed" label="Schrankenbaum == Closed">
+        <transition Id="19029242-0bde-458f-87dd-a42ed289e3c7" guard="Schrankenbaum == Closed || Stoerung_Geschlossensensor != No" label="Schrankenbaum == Closed || Stoerung_Geschlossensensor != No">
           <stateMoniker name="/fa8430db-dc1f-4895-9460-4d079b8e6b4d/Closed" />
         </transition>
       </successors>
     </state>
     <state Id="a949ca69-d06c-4540-b013-5ca4be73ada6" name="Closed">
       <successors>
-        <transition Id="7a51ee95-2343-4dc8-9a23-ac1f62d65cde" guard="Schrankenbaum != Closed" label="Schrankenbaum != Closed">
+        <transition Id="7a51ee95-2343-4dc8-9a23-ac1f62d65cde" guard="Schrankenbaum != Closed &amp;&amp; Stoerung_Geschlossensensor == No" label="Schrankenbaum != Closed &amp;&amp; Stoerung_Geschlossensensor == No">
           <stateMoniker name="/fa8430db-dc1f-4895-9460-4d079b8e6b4d/Not_closed" />
+        </transition>
+        <transition Id="5e1dba6c-04f7-4b84-a8e4-499824504b67" guard="Stoerung_Geschlossensensor != No" label="Stoerung_Geschlossensensor != No">
+          <stateMoniker name="/fa8430db-dc1f-4895-9460-4d079b8e6b4d/Closed" />
         </transition>
       </successors>
     </state>
@@ -26,6 +29,9 @@
   <importedVariables>
     <programGraphHasImportedVariables Id="1614e951-5bba-4af3-aaec-c654de9e3432">
       <importedVariable Id="ec0739b3-8e3c-43d3-a009-e44eadbb95a5" name="Schrankenbaum" range="Open, Closing, Closed, Opening" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="6e0628ab-291a-40ba-9ad8-c832ba551a77">
+      <importedVariable Id="16894001-20d1-416b-ab74-6c4fe7893a44" name="Stoerung_Geschlossensensor" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

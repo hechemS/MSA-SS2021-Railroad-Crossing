@@ -13,8 +13,11 @@
         <transition Id="09faa5d8-1625-479d-b906-760c0bb4b492" guard="BUSteuerung == Opening" label="BUSteuerung == Opening" precondition="true">
           <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Opening" />
         </transition>
-        <transition Id="c5689048-589a-43c3-8322-7f21bcad9479" guard="BUSteuerung == Closing" label="BUSteuerung == Closing" precondition="true">
+        <transition Id="c5689048-589a-43c3-8322-7f21bcad9479" guard="BUSteuerung == Closing &amp;&amp; Stoerung_Schrankenmotor == No" label="BUSteuerung == Closing &amp;&amp; Stoerung_Schrankenmotor == No" precondition="true">
           <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Closing" />
+        </transition>
+        <transition Id="5217dd09-b721-4e6b-845a-1ee1d5937318" guard="BUSteuerung == Closing &amp;&amp; Stoerung_Schrankenmotor != No" label="BUSteuerung == Closing &amp;&amp; Stoerung_Schrankenmotor != No">
+          <stateMoniker name="/1677f56b-3550-4540-a563-7540f4ded83c/Idle" />
         </transition>
       </successors>
     </state>
@@ -55,6 +58,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="791bb5b5-1f60-4c97-a881-d1150c61ed22">
       <importedVariable Id="1acb0b8a-9c9e-4e44-9aa5-6bfa1cadec96" name="Schrankenbaum.angle" range="0..5" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="96ab5e85-17e3-45c8-9af8-69702dfe9b8f">
+      <importedVariable Id="09e43b30-a8fc-4025-b8c2-47ee94cf7214" name="Stoerung_Schrankenmotor" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

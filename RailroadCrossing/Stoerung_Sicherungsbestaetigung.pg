@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="a659fd98-4c3e-409a-9637-1b008b85b497" name="Stoerung_Sicherungsbestaetigung" type="Fault" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="a755c0f4-8ed1-42d5-be8b-dd0c7c342eaa" name="InitialNode1">
+      <successors>
+        <transition Id="36b0b057-1e55-4acc-9f30-9fed7e972653">
+          <stateMoniker name="/a659fd98-4c3e-409a-9637-1b008b85b497/No" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="7e2761a0-df70-4f43-b181-291134b747b0" name="No">
+      <successors>
+        <transition Id="064c6950-6553-4c42-a866-bc1e9829790a">
+          <stateMoniker name="/a659fd98-4c3e-409a-9637-1b008b85b497/No" />
+        </transition>
+        <transition Id="a8789b64-f2c6-42ab-bc28-71cea411478c">
+          <stateMoniker name="/a659fd98-4c3e-409a-9637-1b008b85b497/Yes" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="b11373b6-6bcf-4aa5-a921-bcdd15daafa5" name="Yes">
+      <successors>
+        <transition Id="b2c91a2a-3ff4-4347-b4d2-52b7f1689f41">
+          <stateMoniker name="/a659fd98-4c3e-409a-9637-1b008b85b497/Yes" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+</programGraph>

@@ -3,8 +3,11 @@
   <states>
     <state Id="5432daf1-74a3-425c-b144-ec63e7245211" name="idle">
       <successors>
-        <transition Id="979c1183-254a-4441-a630-6d4b03e8789e" guard="Zugsteuerung == Notifying" label="Zugsteuerung == Notifying" precondition="true">
+        <transition Id="979c1183-254a-4441-a630-6d4b03e8789e" guard="Zugsteuerung == Notifying &amp;&amp; Stoerung_Zugfunkmodul == No" label="Zugsteuerung == Notifying &amp;&amp; Stoerung_Zugfunkmodul == No" precondition="true">
           <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Notification_Pending" />
+        </transition>
+        <transition Id="c8cc8fb4-5681-4b2b-a51c-2296f7bf57d7" guard="Stoerung_Zugfunkmodul != No &amp;&amp; Zugsteuerung == Inquiring " label="Stoerung_Zugfunkmodul != No &amp;&amp; Zugsteuerung == Inquiring ">
+          <stateMoniker name="/2535d03a-d56d-480a-b08c-eeb5dc890d7b/Query_Pending" />
         </transition>
       </successors>
     </state>
@@ -51,6 +54,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="07e0e4f6-689d-4ce6-896f-1c270fdfcea3">
       <importedVariable Id="37dcf7a2-da6d-4b90-93e0-fce303ac710b" name="BUfunkmodul" range="idle, Notification_Received, Confirmation_Request, Confirmation_Pending, Confirmed" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="61c97f51-20c2-4f65-b0c2-5472d173c342">
+      <importedVariable Id="9c08a62e-3828-424b-92f7-0dd1c6418dc9" name="Stoerung_Zugfunkmodul" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

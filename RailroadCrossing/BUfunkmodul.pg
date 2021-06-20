@@ -17,7 +17,7 @@
     </state>
     <state Id="ef4d8240-6e58-48cb-a256-b0fd9919e172" name="Confirmation_Request">
       <successors>
-        <transition Id="38936575-d2b5-41ed-b7f7-eb27f116e9dc" guard="BUSteuerung == Secured" label="BUSteuerung == Secured" precondition="true">
+        <transition Id="38936575-d2b5-41ed-b7f7-eb27f116e9dc" guard="BUSteuerung == Secured || Stoerung_Sicherungsbestaetigung != No" label="BUSteuerung == Secured || Stoerung_Sicherungsbestaetigung != No" precondition="true">
           <stateMoniker name="/cca44e62-984a-44d6-b818-29ff3f597175/Confirmation_Pending" />
         </transition>
       </successors>
@@ -44,6 +44,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="ff67c3e3-f5d0-495d-997d-e7836bc958e0">
       <importedVariable Id="23d8869b-2b91-455a-bc73-ab772d185978" name="BUSteuerung" range="Idle, Closing, Secured, Opening" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="9dca3d66-eb15-4aff-86e1-87e0635cdced">
+      <importedVariable Id="8fdc354c-89ab-42d1-94ca-5ef4d581360a" name="Stoerung_Sicherungsbestaetigung" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

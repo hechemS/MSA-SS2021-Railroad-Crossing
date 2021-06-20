@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="02751e5d-6d5d-40cb-bb4a-cc0cb5dbf193" name="Stoerung_Zugsensor" type="Fault" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="4d51a0db-658b-4236-ac9b-c61396e0aaab" name="InitialNode1">
+      <successors>
+        <transition Id="76d00873-d771-4521-b795-4514562c832e">
+          <stateMoniker name="/02751e5d-6d5d-40cb-bb4a-cc0cb5dbf193/No" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="71b14955-02af-4d36-a960-8f7f55cbb716" name="No">
+      <successors>
+        <transition Id="44a89cb3-a342-4fd1-a375-9b13acef0315">
+          <stateMoniker name="/02751e5d-6d5d-40cb-bb4a-cc0cb5dbf193/No" />
+        </transition>
+        <transition Id="5ae4f71e-a10c-4ac1-b6c7-e3ed2291a89b">
+          <stateMoniker name="/02751e5d-6d5d-40cb-bb4a-cc0cb5dbf193/Yes" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="e64bb6bf-d866-467b-9b79-ec8b704376b6" name="Yes">
+      <successors>
+        <transition Id="8b2f3fd6-4652-4471-a3b2-ec2791c241f2">
+          <stateMoniker name="/02751e5d-6d5d-40cb-bb4a-cc0cb5dbf193/Yes" />
+        </transition>
+        <transition Id="3e7cb28b-9232-4f2d-9a19-fc370f640322">
+          <stateMoniker name="/02751e5d-6d5d-40cb-bb4a-cc0cb5dbf193/No" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+</programGraph>
