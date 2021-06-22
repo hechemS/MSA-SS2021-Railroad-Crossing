@@ -35,7 +35,7 @@ DEFINE
 		Zugpositionrechner:= v.V_Zugpositionrechner;
 
 		Stoerung_Bremse := v.V_Stoerung_Bremse;
-		Stoerung_Geschlossensensor := v.V_Stoerung_Geschlossensensor;
+		Stoerung_BUtimer := v.V_Stoerung_BUtimer;
 		Stoerung_Hodometer := v.V_Stoerung_Hodometer;
 		Stoerung_Schrankenmotor := v.V_Stoerung_Schrankenmotor;
 		Stoerung_Zugfunkmodul := v.V_Stoerung_Zugfunkmodul;
@@ -70,7 +70,7 @@ DEFINE
 
 
 -- None of the errors occured
-		noFaults := Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No;
+		noFaults := Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No;
 
 		
 -- The Hazard
@@ -182,53 +182,53 @@ CTLSPEC EF (BUfunkmodul = Confirmation_Pending & Schrankenbaum!=Closed)
 -- Single element sets of failures
 
 -- Stoerung_Bremse => SAFE
-LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
--- Stoerung_Geschlossensensor => SAFE																																														
+LTLSPEC  ! ( (Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_BUtimer => MIN CRITICAL																																														
 LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
--- Stoerung_Hodometer => CRITICAL																																																
--- LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Hodometer => MIN CRITICAL																																																
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
 -- Stoerung_Schrankenmotor => SAFE																																															
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
 -- Stoerung_Sicherungsbestaetigung => SAFE																																													
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No ) U hazard )
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No ) U hazard )
 -- Stoerung_Zugfunkmodul => SAFE																																															
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
--- Stoerung_Zugsensor => CRITICAL																																																
--- LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Zugsensor => MIN CRITICAL																																																
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
 
 
 
 
 -- Two-element sets of failures
 
--- Stoerung_Bremse and Stoerung_Geschlossensensor => SAFE
-LTLSPEC  ! ( (Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
--- Stoerung_Bremse and Stoerung_Schrankenmotor => CRITICAL
--- LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+-- Stoerung_Bremse and Stoerung_Schrankenmotor => MIN CRITICAL
+LTLSPEC  ! ( (Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
 -- Stoerung_Bremse and Stoerung_Sicherungsbestaetigung => SAFE
-LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No ) U hazard )
--- Stoerung_Bremse and Stoerung_Zugfunkmodul => CRITICAL
--- LTLSPEC  ! ( (Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+LTLSPEC  ! ( (Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No ) U hazard )
+-- Stoerung_Bremse and Stoerung_Zugfunkmodul => MIN CRITICAL
+LTLSPEC  ! ( (Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
 
 
-
-
--- Stoerung_Geschlossensensor and Stoerung_Schrankenmotor => SAFE																																													
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
--- Stoerung_Geschlossensensor and Stoerung_Sicherungsbestaetigung => SAFE																																														
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No) U hazard )
--- Stoerung_Geschlossensensor and Stoerung_Zugfunkmodul => SAFE																																														
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
-
-
-
-
--- Stoerung_Schrankenmotor and Stoerung_Sicherungsbestaetigung => CRITICAL																																															
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No) U hazard )
+-- Stoerung_Schrankenmotor and Stoerung_Sicherungsbestaetigung => MIN CRITICAL																																															
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Zugfunkmodul = No & Stoerung_Zugsensor = No) U hazard )
 -- Stoerung_Schrankenmotor and Stoerung_Zugfunkmodul => SAFE																																												
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Zugsensor = No & Stoerung_Sicherungsbestaetigung = No) U hazard )
 
 
 -- Stoerung_Sicherungsbestaetigung and Stoerung_Zugfunkmodul => SAFE																																										
-LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_Geschlossensensor = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No ) U hazard )
+LTLSPEC  ! ( (Stoerung_Bremse = No & Stoerung_BUtimer = No & Stoerung_Hodometer = No & Stoerung_Schrankenmotor = No & Stoerung_Zugsensor = No ) U hazard )
+
+
+
+-- Three-element sets of failures
+
+-- Stoerung_Bremse and Stoerung_Sicherungsbestaetigung and Stoerung_Schrankenmotor => CRITICAL because Stoerung_Schrankenmotor and Stoerung_Sicherungsbestaetigung => CRITICAL
+
+-- Stoerung_Bremse and Stoerung_Sicherungsbestaetigung and Stoerung_Zugfunkmodul => CRITICAL because Stoerung_Bremse and Stoerung_Zugfunkmodul => CRITICAL
+
+
+-- Stoerung_Schrankenmotor and Stoerung_Zugfunkmodul and Stoerung_Bremse => CRITICAL because Stoerung_Bremse and Stoerung_Zugfunkmodul => CRITICAL
+
+-- Stoerung_Schrankenmotor and Stoerung_Zugfunkmodul and Stoerung_Sicherungsbestaetigung => CRITICAL because Stoerung_Schrankenmotor and Stoerung_Sicherungsbestaetigung => CRITICAL
+
 

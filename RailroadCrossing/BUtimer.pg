@@ -10,13 +10,13 @@
     </state>
     <state Id="ff7c2389-9282-4a38-8be0-cb63750f9b61" name="Counting">
       <successors>
-        <transition Id="ce57d625-edfc-4047-ba42-5d3bf89a5f6f" guard="time == max_time &amp;&amp; Schrankeoffensensor != Open" label="time == max_time &amp;&amp; Schrankeoffensensor != Open">
+        <transition Id="ce57d625-edfc-4047-ba42-5d3bf89a5f6f" guard="(time == max_time &amp;&amp; Schrankeoffensensor != Open) || Stoerung_BUtimer != No" label="(time == max_time &amp;&amp; Schrankeoffensensor != Open) || Stoerung_BUtimer != No">
           <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Time_Up" />
         </transition>
-        <transition Id="c9dd3aed-5b8d-4973-bded-575cb4051776" guard="time &lt; max_time" action="time := time + 1" label="time &lt; max_time // time := time + 1" precondition="auto">
+        <transition Id="c9dd3aed-5b8d-4973-bded-575cb4051776" guard="time &lt; max_time &amp;&amp; Stoerung_BUtimer == No" action="time := time + 1" label="time &lt; max_time &amp;&amp; Stoerung_BUtimer == No // time := time + 1" precondition="auto">
           <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Counting" />
         </transition>
-        <transition Id="7ec654f5-7fb4-48f5-8e72-cebdb7f825ab" guard="Schrankeoffensensor == Open" label="Schrankeoffensensor == Open">
+        <transition Id="7ec654f5-7fb4-48f5-8e72-cebdb7f825ab" guard="Schrankeoffensensor == Open &amp;&amp; Stoerung_BUtimer == No" label="Schrankeoffensensor == Open &amp;&amp; Stoerung_BUtimer == No">
           <stateMoniker name="/4be5fe3b-8377-4b45-ae1e-d1e776c1df98/Idle" />
         </transition>
       </successors>
@@ -46,6 +46,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="b4b9f6ce-3c2b-408f-8838-e7a4429f36da">
       <importedVariable Id="44d375c2-02bf-4f63-b964-b3c050359917" name="Schrankeoffensensor" range="Open, Not_open" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="2b75b7e5-214f-4772-99ad-9ef245759731">
+      <importedVariable Id="465deb11-0d77-4442-a679-f4d570a1c991" name="Stoerung_BUtimer" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

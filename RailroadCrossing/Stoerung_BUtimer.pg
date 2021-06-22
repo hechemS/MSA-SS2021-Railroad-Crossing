@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="ae03e71a-c45c-430e-9056-fc7ba588e3b1" name="Stoerung_Geschlossensensor" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="ae03e71a-c45c-430e-9056-fc7ba588e3b1" name="Stoerung_BUtimer" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="a463d4c1-5f17-4acd-9dc5-f3b43aef4b85" name="InitialNode1">
       <successors>
@@ -29,9 +29,4 @@
       </successors>
     </state>
   </states>
-  <comments>
-    <programGraphHasComments Id="989d7efe-fbec-4fed-9db3-bebe333d98d9">
-      <comment Id="9350e0e1-428c-4756-aace-bab742e4c36e" text="Detectiert geschlossene Schranke, obwohl sie offen ist" />
-    </programGraphHasComments>
-  </comments>
 </programGraph>
