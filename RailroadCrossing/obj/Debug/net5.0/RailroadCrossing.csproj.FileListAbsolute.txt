@@ -1,5 +1,0 @@
-C:\Users\heche\source\repos\RailroadCrossing\RailroadCrossing\obj\Debug\net5.0\RailroadCrossing.csprojAssemblyReference.cache
-C:\Users\heche\source\repos\RailroadCrossing\RailroadCrossing\obj\Debug\net5.0\RailroadCrossing.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\heche\source\repos\RailroadCrossing\RailroadCrossing\obj\Debug\net5.0\RailroadCrossing.AssemblyInfoInputs.cache
-C:\Users\heche\source\repos\RailroadCrossing\RailroadCrossing\obj\Debug\net5.0\RailroadCrossing.AssemblyInfo.cs
-C:\Users\heche\source\repos\RailroadCrossing\RailroadCrossing\obj\Debug\net5.0\RailroadCrossing.csproj.CoreCompileInputs.cache
